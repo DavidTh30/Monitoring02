@@ -57,6 +57,16 @@ type
     Image2: TImage;
     Image5: TImage;
     Label19: TLabel;
+    Label20: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
+    Label23: TLabel;
+    Label24: TLabel;
+    Label25: TLabel;
+    Label26: TLabel;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
     Label_Source7: TLabel;
     Label_Source8: TLabel;
     Memo1: TMemo;
@@ -99,8 +109,10 @@ type
     function StrIntToStr(Sender: string): string;
     function StrFloatToStr(Sender: string): string;
     procedure updatePhoto();
-    function HLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
+    function VLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
     function Cyc(x: integer; y: integer; xr:integer; yr:integer; Act: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
+    function HLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
+    function HText(x: integer; y: integer; s: string; bmp: TBGRABitmap): TBGRABitmap;
   end;
 
 var
@@ -131,6 +143,102 @@ implementation
 {$R *.lfm}
 
 { TForm1 }
+function TForm1.HText(x: integer; y: integer; s: string; bmp: TBGRABitmap): TBGRABitmap;
+var
+  po2: array of TPointF;
+  Diatance: integer;
+  ActDistance: integer;
+  Position_:integer;
+  ts: TSize;
+  ActPercent: float;
+begin
+  ActPercent:=100;
+  if (ActPercent>100) then ActPercent:=100;
+  if (ActPercent<-100) then ActPercent:=-100;
+
+  bmp.FontHeight := 12;
+  //bmp.FontStyle := [fsBold];
+  bmp.FontAntialias := true;
+  ts := bmp.TextSize(s);
+
+  Diatance:=ts.cx;
+  Position_:= Round(Diatance/2);
+  ActDistance:= Round((Diatance/2)/100*ActPercent);
+
+  SetLength(po2, 4);
+
+  bmp.Canvas2D.fillStyle('rgb(0,0,0)');
+  po2[0] := PointF(x-2, y-2);
+  po2[1] := PointF(x-2+Diatance+3, y-2);
+  po2[2] := PointF(x-2+Diatance+3, y-2+15+3);
+  po2[3] := PointF(x-2, y-2+15+3);
+  bmp.DrawPolygonAntialias(po2, cssBlack, 1, CSSWhite);
+
+  //bmp.Canvas2D.fillStyle('rgb(255,205,255)');
+  //bmp.Canvas2D.fillRect(Position_+x,y,ActDistance,15);
+
+  //bmp.FillRect(20, 20, 60, 60, BGRAWhite, dmSet); // draws a white square without transparency
+  //bmp.FillRect(40, 40, 80, 80, BGRA(0, 0, 255, 128), dmDrawWithTransparency); // draws a transparent blue square
+
+  bmp.TextOut(Position_+x-round(ts.cx/2), y, s, ColorToBGRA(clBlack));
+
+  result:=bmp;
+
+end;
+
+function TForm1.VLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
+var
+  PositionX: integer;
+  PositionY:integer;
+  po2: array of TPointF;
+  Diatance: integer;
+  ActDistance: integer;
+  Position_:integer;
+  ts: TSize;
+  ActPercent: float;
+begin
+  ActPercent:=percent;
+  if (ActPercent>100) then ActPercent:=100;
+  if (ActPercent<-100) then ActPercent:=-100;
+
+  Diatance:=76;
+  Position_:= Round(Diatance/2);
+  ActDistance:= Round((Diatance/2)/100*ActPercent)*(-1);
+
+  PositionX:= Round(15/2);
+  PositionY:= Round(Diatance/2);
+
+  SetLength(po2, 4);
+
+  bmp.Canvas2D.fillStyle('rgb(0,0,0)');
+  po2[0] := PointF(x-2, y-2);
+  po2[1] := PointF(x-2, y-2+Diatance+3);
+  po2[2] := PointF(x-2+15+3, y-2+Diatance+3);
+  po2[3] := PointF(x-2+15+3, y-2);
+  bmp.DrawPolygonAntialias(po2, cssBlack, 1, CSSLightGray);
+
+  if (ActPercent>=0) then bmp.Canvas2D.fillStyle('rgb(0,205,0)');
+  if (ActPercent<0) then bmp.Canvas2D.fillStyle('rgb(205,205,0)');
+  bmp.Canvas2D.fillRect(x,Position_+y,15,ActDistance);
+
+  //bmp.FillRect(20, 20, 60, 60, BGRAWhite, dmSet); // draws a white square without transparency
+  //bmp.FillRect(40, 40, 80, 80, BGRA(0, 0, 255, 128), dmDrawWithTransparency); // draws a transparent blue square
+
+  //bmp.Canvas2D.resetTransform;
+  //bmp.Canvas2D.translate(x,y);
+  //bmp.Canvas2D.rotate(90);
+
+  bmp.FontHeight := 12;
+  //bmp.FontStyle := [fsBold];
+  bmp.FontAntialias := true;
+  ts := bmp.TextSize(floattostr(percent)+Sufix);
+  //bmp.TextOut(x+PositionX-round(ts.cx/2), y+PositionY-round(ts.cy/2), floattostr(percent)+Sufix, ColorToBGRA(clBlack));
+  bmp.TextOutAngle(x,y+PositionY+round(ts.cy/2),900,floattostr(percent)+Sufix, ColorToBGRA(clBlack));
+  //bmp.Canvas2D.resetTransform;
+
+  result:=bmp;
+
+end;
 
 function TForm1.Cyc(x: integer; y: integer; xr:integer; yr:integer; Act: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
 var
@@ -360,11 +468,11 @@ begin
   bmp.Canvas2D.translate(0,0);
   bmp.Canvas2D.rotate(0);
 
-  bmp:=HLevel(200,160+0,-40,'%',bmp);
-  bmp:=HLevel(200,160+20,-10,'%',bmp);
-  bmp:=HLevel(200,160+40,5,'%',bmp);
-  bmp:=HLevel(200,160+60,10,'%',bmp);
-  bmp:=HLevel(200,160+80,20,'%',bmp);
+  bmp:=HLevel(100,160+0,-40,'%',bmp);
+  bmp:=HLevel(100,160+20,-10,'%',bmp);
+  bmp:=HLevel(100,160+40,5,'%',bmp);
+  bmp:=HLevel(100,160+60,10,'%',bmp);
+  bmp:=HLevel(100,160+80,20,'%',bmp);
 
   bmp:=HLevel(500,160+0,30,'%',bmp);
   bmp:=HLevel(500,160+20,40,'%',bmp);
@@ -863,11 +971,22 @@ begin
   bmp.Canvas2D.translate(0,0);
   bmp.Canvas2D.rotate(0);
 
-  bmp:=HLevel(200,160+0,-40,'%',bmp);
-  bmp:=HLevel(200,160+20,-10,'%',bmp);
-  bmp:=HLevel(200,160+40,5,'%',bmp);
-  bmp:=HLevel(200,160+60,10,'%',bmp);
-  bmp:=HLevel(200,160+80,20,'%',bmp);
+  bmp:=HLevel(100,160+0,-40,'%',bmp);
+  bmp:=HLevel(100,160+20,-10,'%',bmp);
+  bmp:=HLevel(100,160+40,5,'%',bmp);
+  bmp:=HLevel(100,160+60,10,'%',bmp);
+  bmp:=HLevel(100,160+80,20,'%',bmp);
+
+  bmp:=VLevel(250+0,160,-40,'%',bmp);
+  bmp:=VLevel(250+20,160,-10,'%',bmp);
+  bmp:=VLevel(250+40,160,5,'%',bmp);
+  bmp:=VLevel(250+60,160,10,'%',bmp);
+  bmp:=VLevel(250+80,160,20,'%',bmp);
+  bmp:=VLevel(250+100,160,30,'%',bmp);
+  bmp:=VLevel(250+120,160,40,'%',bmp);
+  bmp:=VLevel(250+140,160,50,'%',bmp);
+  bmp:=VLevel(250+160,160,60,'%',bmp);
+  bmp:=VLevel(250+180,160,70,'%',bmp);
 
   bmp:=HLevel(500,160+0,30,'%',bmp);
   bmp:=HLevel(500,160+20,40,'%',bmp);
@@ -875,6 +994,18 @@ begin
   bmp:=HLevel(500,160+60,60,'%',bmp);
 
   bmp:=HLevel(640,160+0,70,'%',bmp);
+
+  bmp:=HText(3,3,X.ToString+','+Y.ToString,bmp);
+  bmp:=HText(118,27,'1',bmp);
+  bmp:=HText(199,54,'2',bmp);
+  bmp:=HText(279,27,'3',bmp);
+  bmp:=HText(358,54,'4',bmp);
+  bmp:=HText(439,27,'5',bmp);
+  bmp:=HText(498,72,'6',bmp);
+  bmp:=HText(538,46,'7',bmp);
+  bmp:=HText(578,72,'8',bmp);
+  bmp:=HText(618,46,'9',bmp);
+  bmp:=HText(675,54,'10',bmp);
 
   bmp.Canvas2D.resetTransform;
 
