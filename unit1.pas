@@ -852,9 +852,9 @@ begin
   _Source2_.Clear;
   for i:=0 to TotalPointerX-1 do
   begin
-    _Source1_.Add(i,CurrentSource1[i] );
+    _Source1_.Add(i+1,CurrentSource1[i] );
     //_Base_.Add(i,Base_[i] );
-    _Source2_.Add(i,CurrentSource2[i] );
+    _Source2_.Add(i+1,CurrentSource2[i] );
   end;
   updatePhoto();
 end;

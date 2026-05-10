@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 394
+  Left = 718
   Height = 571
-  Top = 159
+  Top = 163
   Width = 995
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  Caption = 'Monitor02 05052026'
+  Caption = 'Monitor02 10052026'
   ClientHeight = 571
   ClientWidth = 995
   Position = poWorkAreaCenter
@@ -160,16 +160,14 @@ object Form1: TForm1
         Extent.UseXMin = True
         Extent.UseYMax = True
         Extent.UseYMin = True
-        Extent.XMax = 10
-        Extent.XMin = -1
+        Extent.XMax = 11
         Extent.YMax = 101
         Extent.YMin = -1
         ExtentSizeLimit.UseXMax = True
         ExtentSizeLimit.UseXMin = True
         ExtentSizeLimit.UseYMax = True
         ExtentSizeLimit.UseYMin = True
-        ExtentSizeLimit.XMax = 10
-        ExtentSizeLimit.XMin = -1
+        ExtentSizeLimit.XMax = 11
         ExtentSizeLimit.YMax = 101
         ExtentSizeLimit.YMin = -1
         Foot.Brush.Color = clBtnFace
@@ -206,31 +204,31 @@ object Form1: TForm1
         end
       end
       object Shape9: TShape
-        Left = 9
+        Left = 1
         Height = 13
-        Top = 482
+        Top = 481
         Width = 16
         Brush.Color = clLime
       end
       object Label_Source7: TLabel
-        Left = 27
+        Left = 19
         Height = 15
-        Top = 480
+        Top = 479
         Width = 52
         Caption = '=Setpoint'
         ParentColor = False
       end
       object Shape10: TShape
-        Left = 9
+        Left = 1
         Height = 13
-        Top = 514
+        Top = 513
         Width = 16
         Brush.Color = clRed
       end
       object Label_Source8: TLabel
-        Left = 27
+        Left = 19
         Height = 15
-        Top = 512
+        Top = 511
         Width = 42
         Caption = '=Actual'
         ParentColor = False
@@ -1322,181 +1320,301 @@ object Form1: TForm1
         OnClick = Image2Click
       end
       object Edit1: TEdit
-        Left = 81
+        AnchorSideLeft.Control = Label20
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label20
+        AnchorSideTop.Side = asrBottom
+        Left = 78
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 1
         Text = '32.0'
         OnEditingDone = Edit1EditingDone
       end
       object Edit2: TEdit
-        Left = 145
+        AnchorSideLeft.Control = Label21
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label21
+        AnchorSideTop.Side = asrBottom
+        Left = 151
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 2
         Text = '32.0'
         OnEditingDone = Edit1EditingDone
       end
       object Edit3: TEdit
-        Left = 209
+        AnchorSideLeft.Control = Label22
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label22
+        AnchorSideTop.Side = asrBottom
+        Left = 225
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 3
         Text = '20.0'
         OnEditingDone = Edit1EditingDone
       end
       object Edit4: TEdit
-        Left = 273
+        AnchorSideLeft.Control = Label23
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label23
+        AnchorSideTop.Side = asrBottom
+        Left = 297
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 4
         Text = '25.4'
         OnEditingDone = Edit1EditingDone
       end
       object Edit5: TEdit
-        Left = 337
+        AnchorSideLeft.Control = Label24
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label24
+        AnchorSideTop.Side = asrBottom
+        Left = 370
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 5
         Text = '31.0'
         OnEditingDone = Edit1EditingDone
       end
       object Edit6: TEdit
-        Left = 401
+        AnchorSideLeft.Control = Label25
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label25
+        AnchorSideTop.Side = asrBottom
+        Left = 443
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 6
         Text = '45.0'
         OnEditingDone = Edit1EditingDone
       end
       object Edit7: TEdit
-        Left = 465
+        AnchorSideLeft.Control = Label26
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label26
+        AnchorSideTop.Side = asrBottom
+        Left = 513
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 7
         Text = '56.5'
         OnEditingDone = Edit1EditingDone
       end
       object Edit8: TEdit
-        Left = 529
+        AnchorSideLeft.Control = Label27
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label27
+        AnchorSideTop.Side = asrBottom
+        Left = 592
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 8
         Text = '65.7'
         OnEditingDone = Edit1EditingDone
       end
       object Edit9: TEdit
-        Left = 593
+        AnchorSideLeft.Control = Label28
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label28
+        AnchorSideTop.Side = asrBottom
+        Left = 665
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 9
         Text = '78.3'
         OnEditingDone = Edit1EditingDone
       end
       object Edit10: TEdit
-        Left = 657
+        AnchorSideLeft.Control = Label29
+        AnchorSideLeft.Side = asrCenter
+        AnchorSideTop.Control = Label29
+        AnchorSideTop.Side = asrBottom
+        Left = 738
         Height = 23
         Top = 472
         Width = 56
+        BorderSpacing.Top = 8
         TabOrder = 10
         Text = '85.2'
         OnEditingDone = Edit1EditingDone
       end
       object Edit11: TEdit
-        Left = 81
+        AnchorSideLeft.Control = Edit1
+        AnchorSideTop.Control = Edit1
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit1
+        AnchorSideRight.Side = asrBottom
+        Left = 78
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 11
         Text = '32.0'
         OnEditingDone = Edit1EditingDone
       end
       object Edit12: TEdit
-        Left = 145
+        AnchorSideLeft.Control = Edit2
+        AnchorSideTop.Control = Edit2
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit2
+        AnchorSideRight.Side = asrBottom
+        Left = 151
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 12
         Text = '31.9'
         OnEditingDone = Edit1EditingDone
       end
       object Edit13: TEdit
-        Left = 209
+        AnchorSideLeft.Control = Edit3
+        AnchorSideTop.Control = Edit3
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit3
+        AnchorSideRight.Side = asrBottom
+        Left = 225
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 13
         Text = '20.2'
         OnEditingDone = Edit1EditingDone
       end
       object Edit14: TEdit
-        Left = 273
+        AnchorSideLeft.Control = Edit4
+        AnchorSideTop.Control = Edit4
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit4
+        AnchorSideRight.Side = asrBottom
+        Left = 297
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 14
         Text = '25.6'
         OnEditingDone = Edit1EditingDone
       end
       object Edit15: TEdit
-        Left = 337
+        AnchorSideLeft.Control = Edit5
+        AnchorSideTop.Control = Edit5
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit5
+        AnchorSideRight.Side = asrBottom
+        Left = 370
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 15
         Text = '31.1'
         OnEditingDone = Edit1EditingDone
       end
       object Edit16: TEdit
-        Left = 401
+        AnchorSideLeft.Control = Edit6
+        AnchorSideTop.Control = Edit6
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit6
+        AnchorSideRight.Side = asrBottom
+        Left = 443
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 16
         Text = '45.2'
         OnEditingDone = Edit1EditingDone
       end
       object Edit17: TEdit
-        Left = 465
+        AnchorSideLeft.Control = Edit7
+        AnchorSideTop.Control = Edit7
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit7
+        AnchorSideRight.Side = asrBottom
+        Left = 513
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 17
         Text = '57'
         OnEditingDone = Edit1EditingDone
       end
       object Edit18: TEdit
-        Left = 529
+        AnchorSideLeft.Control = Edit8
+        AnchorSideTop.Control = Edit8
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit8
+        AnchorSideRight.Side = asrBottom
+        Left = 592
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 18
         Text = '61'
         OnEditingDone = Edit1EditingDone
       end
       object Edit19: TEdit
-        Left = 593
+        AnchorSideLeft.Control = Edit9
+        AnchorSideTop.Control = Edit9
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit9
+        AnchorSideRight.Side = asrBottom
+        Left = 665
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 19
         Text = '77.6'
         OnEditingDone = Edit1EditingDone
       end
       object Edit20: TEdit
-        Left = 657
+        AnchorSideLeft.Control = Edit10
+        AnchorSideTop.Control = Edit10
+        AnchorSideTop.Side = asrBottom
+        AnchorSideRight.Control = Edit10
+        AnchorSideRight.Side = asrBottom
+        Left = 738
         Height = 23
-        Top = 504
+        Top = 503
         Width = 56
+        Anchors = [akTop, akLeft, akRight]
+        BorderSpacing.Top = 8
         TabOrder = 20
         Text = '84.3'
         OnEditingDone = Edit1EditingDone
@@ -1511,70 +1629,70 @@ object Form1: TForm1
         OnMouseMove = Image5MouseMove
       end
       object Label20: TLabel
-        Left = 104
+        Left = 100
         Height = 15
         Top = 449
         Width = 12
         Caption = '01'
       end
       object Label21: TLabel
-        Left = 168
+        Left = 173
         Height = 15
         Top = 449
         Width = 12
         Caption = '02'
       end
       object Label22: TLabel
-        Left = 232
+        Left = 247
         Height = 15
         Top = 449
         Width = 12
         Caption = '03'
       end
       object Label23: TLabel
-        Left = 296
+        Left = 319
         Height = 15
         Top = 449
         Width = 12
         Caption = '04'
       end
       object Label24: TLabel
-        Left = 360
+        Left = 392
         Height = 15
         Top = 449
         Width = 12
         Caption = '05'
       end
       object Label25: TLabel
-        Left = 424
+        Left = 465
         Height = 15
         Top = 449
         Width = 12
         Caption = '06'
       end
       object Label26: TLabel
-        Left = 488
+        Left = 535
         Height = 15
         Top = 449
         Width = 12
         Caption = '07'
       end
       object Label27: TLabel
-        Left = 552
+        Left = 614
         Height = 15
         Top = 449
         Width = 12
         Caption = '08'
       end
       object Label28: TLabel
-        Left = 616
+        Left = 687
         Height = 15
         Top = 449
         Width = 12
         Caption = '09'
       end
       object Label29: TLabel
-        Left = 680
+        Left = 760
         Height = 15
         Top = 449
         Width = 12
