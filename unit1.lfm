@@ -9,7 +9,7 @@ object Form1: TForm1
   ClientHeight = 571
   ClientWidth = 995
   Position = poWorkAreaCenter
-  LCLVersion = '4.4.0.0'
+  LCLVersion = '4.6.0.0'
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   object ECAccordion1: TECAccordion
@@ -17,7 +17,7 @@ object Form1: TForm1
     AnchorSideTop.Control = Owner
     AnchorSideBottom.Control = StatusBar1
     Left = 0
-    Height = 548
+    Height = 551
     Top = 0
     Width = 131
     Anchors = [akTop, akLeft, akBottom]
@@ -55,7 +55,7 @@ object Form1: TForm1
         Top = 0
         Width = 131
         Anchors = [akTop, akLeft, akRight]
-        Caption = 'Reciept'
+        Caption = 'Recipe'
         OnClick = ECSpeedBtn2Click
       end
       object ECSpeedBtn3: TECSpeedBtn
@@ -110,7 +110,7 @@ object Form1: TForm1
     AnchorSideRight.Side = asrBottom
     AnchorSideBottom.Control = StatusBar1
     Left = 131
-    Height = 548
+    Height = 551
     Top = 0
     Width = 864
     ActivePage = TabSheet2
@@ -123,7 +123,7 @@ object Form1: TForm1
     end
     object TabSheet2: TTabSheet
       Caption = 'Overview Position'
-      ClientHeight = 540
+      ClientHeight = 543
       ClientWidth = 856
       object GroupBox1: TGroupBox
         Left = 440
@@ -131,12 +131,12 @@ object Form1: TForm1
         Top = 32
         Width = 104
         Caption = 'Free Editor'
-        ClientHeight = 340
+        ClientHeight = 342
         ClientWidth = 100
         TabOrder = 0
         object Label30: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 12
           Width = 12
           Caption = '01'
@@ -147,17 +147,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label30
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 8
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 0
-          Text = '32.0'
         end
         object Label31: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 44
           Width = 12
           Caption = '02'
@@ -168,17 +167,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label31
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 40
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 1
-          Text = '32.0'
         end
         object Label32: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 76
           Width = 12
           Caption = '03'
@@ -189,17 +187,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label32
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 72
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 2
-          Text = '20.0'
         end
         object Label33: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 108
           Width = 12
           Caption = '04'
@@ -210,17 +207,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label33
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 104
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 3
-          Text = '25.4'
         end
         object Label34: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 140
           Width = 12
           Caption = '05'
@@ -231,17 +227,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label34
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 136
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 4
-          Text = '31.0'
         end
         object Label35: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 176
           Width = 12
           Caption = '06'
@@ -252,17 +247,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label35
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 172
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 5
-          Text = '45.0'
         end
         object Label36: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 204
           Width = 12
           Caption = '07'
@@ -273,17 +267,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label36
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 200
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 6
-          Text = '56.5'
         end
         object Label37: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 236
           Width = 12
           Caption = '08'
@@ -294,17 +287,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label37
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 232
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 7
-          Text = '65.7'
         end
         object Label38: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 268
           Width = 12
           Caption = '09'
@@ -315,17 +307,16 @@ object Form1: TForm1
           AnchorSideTop.Control = Label38
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 264
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 8
-          Text = '78.3'
         end
         object Label39: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 296
           Width = 12
           Caption = '10'
@@ -336,13 +327,12 @@ object Form1: TForm1
           AnchorSideTop.Control = Label39
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 292
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           TabOrder = 9
-          Text = '85.2'
         end
       end
       object GroupBox2: TGroupBox
@@ -351,12 +341,12 @@ object Form1: TForm1
         Top = 32
         Width = 104
         Caption = 'In use'
-        ClientHeight = 340
+        ClientHeight = 342
         ClientWidth = 100
         TabOrder = 1
         object Label40: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 12
           Width = 12
           Caption = '01'
@@ -367,7 +357,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label40
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 8
           Width = 56
           Alignment = taCenter
@@ -378,7 +368,7 @@ object Form1: TForm1
         end
         object Label41: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 44
           Width = 12
           Caption = '02'
@@ -389,7 +379,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label41
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 40
           Width = 56
           Alignment = taCenter
@@ -400,7 +390,7 @@ object Form1: TForm1
         end
         object Label42: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 76
           Width = 12
           Caption = '03'
@@ -411,7 +401,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label42
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 72
           Width = 56
           Alignment = taCenter
@@ -422,7 +412,7 @@ object Form1: TForm1
         end
         object Label43: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 108
           Width = 12
           Caption = '04'
@@ -433,7 +423,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label43
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 104
           Width = 56
           Alignment = taCenter
@@ -444,7 +434,7 @@ object Form1: TForm1
         end
         object Label44: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 140
           Width = 12
           Caption = '05'
@@ -455,7 +445,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label44
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 136
           Width = 56
           Alignment = taCenter
@@ -466,7 +456,7 @@ object Form1: TForm1
         end
         object Label45: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 176
           Width = 12
           Caption = '06'
@@ -477,7 +467,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label45
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 172
           Width = 56
           Alignment = taCenter
@@ -488,7 +478,7 @@ object Form1: TForm1
         end
         object Label46: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 204
           Width = 12
           Caption = '07'
@@ -499,7 +489,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label46
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 200
           Width = 56
           Alignment = taCenter
@@ -510,7 +500,7 @@ object Form1: TForm1
         end
         object Label47: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 236
           Width = 12
           Caption = '08'
@@ -521,7 +511,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label47
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 232
           Width = 56
           Alignment = taCenter
@@ -532,7 +522,7 @@ object Form1: TForm1
         end
         object Label48: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 268
           Width = 12
           Caption = '09'
@@ -543,7 +533,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label48
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 264
           Width = 56
           Alignment = taCenter
@@ -554,7 +544,7 @@ object Form1: TForm1
         end
         object Label49: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 296
           Width = 12
           Caption = '10'
@@ -565,7 +555,7 @@ object Form1: TForm1
           AnchorSideTop.Control = Label49
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 292
           Width = 56
           Alignment = taCenter
@@ -581,12 +571,12 @@ object Form1: TForm1
         Top = 32
         Width = 104
         Caption = 'From list'
-        ClientHeight = 340
+        ClientHeight = 342
         ClientWidth = 100
         TabOrder = 2
         object Label50: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 12
           Width = 12
           Caption = '01'
@@ -597,18 +587,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label50
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 8
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 0
-          Text = '32.0'
         end
         object Label51: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 44
           Width = 12
           Caption = '02'
@@ -619,18 +608,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label51
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 40
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 1
-          Text = '32.0'
         end
         object Label52: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 76
           Width = 12
           Caption = '03'
@@ -641,18 +629,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label52
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 72
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 2
-          Text = '20.0'
         end
         object Label53: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 108
           Width = 12
           Caption = '04'
@@ -663,18 +650,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label53
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 104
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 3
-          Text = '25.4'
         end
         object Label54: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 140
           Width = 12
           Caption = '05'
@@ -685,18 +671,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label54
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 136
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 4
-          Text = '31.0'
         end
         object Label55: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 176
           Width = 12
           Caption = '06'
@@ -707,18 +692,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label55
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 172
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 5
-          Text = '45.0'
         end
         object Label56: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 204
           Width = 12
           Caption = '07'
@@ -729,18 +713,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label56
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 200
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 6
-          Text = '56.5'
         end
         object Label57: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 236
           Width = 12
           Caption = '08'
@@ -751,18 +734,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label57
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 232
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 7
-          Text = '65.7'
         end
         object Label58: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 268
           Width = 12
           Caption = '09'
@@ -773,18 +755,17 @@ object Form1: TForm1
           AnchorSideTop.Control = Label58
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 264
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 8
-          Text = '78.3'
         end
         object Label59: TLabel
           Left = 8
-          Height = 15
+          Height = 13
           Top = 296
           Width = 12
           Caption = '10'
@@ -795,14 +776,13 @@ object Form1: TForm1
           AnchorSideTop.Control = Label59
           AnchorSideTop.Side = asrCenter
           Left = 28
-          Height = 23
+          Height = 21
           Top = 292
           Width = 56
           Alignment = taCenter
           BorderSpacing.Left = 8
           ReadOnly = True
           TabOrder = 9
-          Text = '85.2'
         end
       end
       object ListBox1: TListBox
@@ -812,6 +792,7 @@ object Form1: TForm1
         Width = 225
         ItemHeight = 0
         TabOrder = 3
+        OnClick = ListBox1Click
       end
       object Button1: TButton
         Left = 256
@@ -823,39 +804,38 @@ object Form1: TForm1
       end
       object Edit51: TEdit
         Left = 8
-        Height = 29
+        Height = 24
         Top = 400
         Width = 225
         Font.CharSet = ANSI_CHARSET
-        Font.Height = -16
+        Font.Height = -13
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         MaxLength = 30
         ParentFont = False
         TabOrder = 5
-        Text = 'Edit51'
       end
       object Button2: TButton
         Left = 680
         Height = 29
         Top = 440
         Width = 98
-        Caption = 'Save New'
+        Caption = 'Save'
         TabOrder = 6
+        OnClick = Button2Click
       end
       object Edit52: TEdit
         Left = 624
-        Height = 29
+        Height = 24
         Top = 400
         Width = 225
         Font.CharSet = ANSI_CHARSET
-        Font.Height = -16
+        Font.Height = -13
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         MaxLength = 30
         ParentFont = False
         TabOrder = 7
-        Text = 'Edit52'
       end
       object Button3: TButton
         Left = 256
@@ -867,17 +847,16 @@ object Form1: TForm1
       end
       object Edit53: TEdit
         Left = 8
-        Height = 29
+        Height = 24
         Top = 440
         Width = 225
         Font.CharSet = ANSI_CHARSET
-        Font.Height = -16
+        Font.Height = -13
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         MaxLength = 30
         ParentFont = False
         TabOrder = 9
-        Text = 'Edit53'
       end
       object Button4: TButton
         Left = 256
@@ -894,28 +873,20 @@ object Form1: TForm1
         Width = 98
         Caption = 'Save'
         TabOrder = 11
-      end
-      object Button6: TButton
-        Left = 440
-        Height = 29
-        Top = 480
-        Width = 98
-        Caption = 'Save As'
-        TabOrder = 12
+        OnClick = Button5Click
       end
       object Edit54: TEdit
         Left = 376
-        Height = 29
+        Height = 24
         Top = 400
         Width = 225
         Font.CharSet = ANSI_CHARSET
-        Font.Height = -16
+        Font.Height = -13
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         MaxLength = 30
         ParentFont = False
-        TabOrder = 13
-        Text = 'Edit54'
+        TabOrder = 12
       end
       object Button7: TButton
         Left = 389
@@ -923,7 +894,8 @@ object Form1: TForm1
         Top = 159
         Width = 40
         Caption = '>>'
-        TabOrder = 14
+        TabOrder = 13
+        OnClick = Button7Click
       end
       object Button8: TButton
         Left = 592
@@ -931,7 +903,8 @@ object Form1: TForm1
         Top = 159
         Width = 40
         Caption = '>>'
-        TabOrder = 15
+        TabOrder = 14
+        OnClick = Button8Click
       end
       object Button9: TButton
         Left = 592
@@ -939,38 +912,40 @@ object Form1: TForm1
         Top = 208
         Width = 40
         Caption = '<<'
-        TabOrder = 16
-      end
-      object Button10: TButton
-        Left = 389
-        Height = 38
-        Top = 208
-        Width = 40
-        Caption = '<<'
-        TabOrder = 17
+        TabOrder = 15
+        OnClick = Button9Click
       end
       object Label1: TLabel
         Left = 8
-        Height = 21
+        Height = 19
         Top = 5
-        Width = 79
-        Caption = 'Reciept List'
+        Width = 75
+        Caption = 'Recipe List'
         Font.CharSet = ANSI_CHARSET
         Font.Height = -16
         Font.Pitch = fpVariable
         Font.Quality = fqDraft
         ParentFont = False
       end
+      object Button11: TButton
+        Left = 8
+        Height = 29
+        Top = 480
+        Width = 98
+        Caption = 'Refresh'
+        TabOrder = 16
+        OnClick = Button11Click
+      end
     end
     object TabSheet3: TTabSheet
       Caption = 'RewindArm'
-      ClientHeight = 540
+      ClientHeight = 543
       ClientWidth = 856
       object Label19: TLabel
         Left = 9
-        Height = 15
+        Height = 13
         Top = 449
-        Width = 54
+        Width = 52
         Caption = 'Data Table'
       end
       object Chart6: TChart
@@ -1050,9 +1025,9 @@ object Form1: TForm1
       end
       object Label_Source7: TLabel
         Left = 19
-        Height = 15
+        Height = 13
         Top = 479
-        Width = 52
+        Width = 48
         Caption = '=Setpoint'
         ParentColor = False
       end
@@ -1065,9 +1040,9 @@ object Form1: TForm1
       end
       object Label_Source8: TLabel
         Left = 19
-        Height = 15
+        Height = 13
         Top = 511
-        Width = 42
+        Width = 38
         Caption = '=Actual'
         ParentColor = False
       end
@@ -2163,8 +2138,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label20
         AnchorSideTop.Side = asrBottom
         Left = 78
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 1
@@ -2177,8 +2152,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label21
         AnchorSideTop.Side = asrBottom
         Left = 151
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 2
@@ -2191,8 +2166,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label22
         AnchorSideTop.Side = asrBottom
         Left = 225
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 3
@@ -2205,8 +2180,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label23
         AnchorSideTop.Side = asrBottom
         Left = 297
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 4
@@ -2219,8 +2194,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label24
         AnchorSideTop.Side = asrBottom
         Left = 370
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 5
@@ -2233,8 +2208,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label25
         AnchorSideTop.Side = asrBottom
         Left = 443
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 6
@@ -2247,8 +2222,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label26
         AnchorSideTop.Side = asrBottom
         Left = 513
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 7
@@ -2261,8 +2236,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label27
         AnchorSideTop.Side = asrBottom
         Left = 592
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 8
@@ -2275,8 +2250,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label28
         AnchorSideTop.Side = asrBottom
         Left = 665
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 9
@@ -2289,8 +2264,8 @@ object Form1: TForm1
         AnchorSideTop.Control = Label29
         AnchorSideTop.Side = asrBottom
         Left = 738
-        Height = 23
-        Top = 472
+        Height = 21
+        Top = 470
         Width = 56
         BorderSpacing.Top = 8
         TabOrder = 10
@@ -2304,8 +2279,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit1
         AnchorSideRight.Side = asrBottom
         Left = 78
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2320,8 +2295,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit2
         AnchorSideRight.Side = asrBottom
         Left = 151
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2336,8 +2311,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit3
         AnchorSideRight.Side = asrBottom
         Left = 225
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2352,8 +2327,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit4
         AnchorSideRight.Side = asrBottom
         Left = 297
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2368,8 +2343,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit5
         AnchorSideRight.Side = asrBottom
         Left = 370
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2384,8 +2359,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit6
         AnchorSideRight.Side = asrBottom
         Left = 443
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2400,8 +2375,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit7
         AnchorSideRight.Side = asrBottom
         Left = 513
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2416,8 +2391,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit8
         AnchorSideRight.Side = asrBottom
         Left = 592
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2432,8 +2407,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit9
         AnchorSideRight.Side = asrBottom
         Left = 665
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2448,8 +2423,8 @@ object Form1: TForm1
         AnchorSideRight.Control = Edit10
         AnchorSideRight.Side = asrBottom
         Left = 738
-        Height = 23
-        Top = 503
+        Height = 21
+        Top = 499
         Width = 56
         Anchors = [akTop, akLeft, akRight]
         BorderSpacing.Top = 8
@@ -2468,70 +2443,70 @@ object Form1: TForm1
       end
       object Label20: TLabel
         Left = 100
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '01'
       end
       object Label21: TLabel
         Left = 173
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '02'
       end
       object Label22: TLabel
         Left = 247
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '03'
       end
       object Label23: TLabel
         Left = 319
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '04'
       end
       object Label24: TLabel
         Left = 392
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '05'
       end
       object Label25: TLabel
         Left = 465
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '06'
       end
       object Label26: TLabel
         Left = 535
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '07'
       end
       object Label27: TLabel
         Left = 614
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '08'
       end
       object Label28: TLabel
         Left = 687
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '09'
       end
       object Label29: TLabel
         Left = 760
-        Height = 15
+        Height = 13
         Top = 449
         Width = 12
         Caption = '10'
@@ -2542,7 +2517,7 @@ object Form1: TForm1
     end
     object TabSheet5: TTabSheet
       Caption = 'TabSheet5'
-      ClientHeight = 540
+      ClientHeight = 543
       ClientWidth = 856
       object Memo1: TMemo
         AnchorSideLeft.Control = TabSheet5
@@ -2552,7 +2527,7 @@ object Form1: TForm1
         AnchorSideBottom.Control = TabSheet5
         AnchorSideBottom.Side = asrBottom
         Left = 0
-        Height = 540
+        Height = 543
         Top = 0
         Width = 856
         Anchors = [akTop, akLeft, akRight, akBottom]
@@ -2563,8 +2538,8 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Height = 23
-    Top = 548
+    Height = 20
+    Top = 551
     Width = 995
     Panels = <>
   end

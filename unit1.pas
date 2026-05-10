@@ -6,9 +6,9 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, Menus, ECAccordion, ECEditBtns, ECSwitch, strutils,
+  ExtCtrls, Menus, ECAccordion, ECEditBtns, ECSwitch, IniFiles,
   TAGraph, TASources, TASeries, TATransformations, Math, windows, TAChartUtils,
-  Process, JwaIpHlpAPI, JwaIpRtrMib, BGRABitmap, BGRABitmapTypes;
+  Process, BGRABitmap, BGRABitmapTypes, FileUtil, LCLType;
 
 function DwmGetWindowAttribute(hwnd: HWND; dwAttribute: DWORD; pvAttribute: PVOID; cbAttribute: DWORD): HRESULT; stdcall; external 'dwmapi.dll';
 
@@ -20,12 +20,11 @@ type
     AccordionItem1: TAccordionItem;
     AccordionItem2: TAccordionItem;
     Button1: TButton;
-    Button10: TButton;
+    Button11: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
-    Button6: TButton;
     Button7: TButton;
     Button8: TButton;
     Button9: TButton;
@@ -165,6 +164,12 @@ type
     _Base_: TListChartSource;
     _Source1_: TListChartSource;
     _Source2_: TListChartSource;
+    procedure Button11Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
     procedure ECSpeedBtn1Click(Sender: TObject);
     procedure ECSpeedBtn2Click(Sender: TObject);
     procedure ECSpeedBtn3Click(Sender: TObject);
@@ -175,6 +180,7 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure Image2Click(Sender: TObject);
     procedure Image5MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
+    procedure ListBox1Click(Sender: TObject);
     procedure SSCClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
@@ -191,6 +197,7 @@ type
     function Cyc(x: integer; y: integer; xr:integer; yr:integer; Act: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
     function HLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
     function HText(x: integer; y: integer; s: string; bmp: TBGRABitmap): TBGRABitmap;
+    procedure Transfer();
   end;
 
 var
@@ -224,6 +231,109 @@ implementation
 {$R *.lfm}
 
 { TForm1 }
+procedure TForm1.Transfer();
+var
+  check:boolean;
+  i:integer;
+begin
+
+  //if (Sender is TEdit) then
+  //(Sender as TEdit).Text:=StrFloatToStr((Sender as TEdit).Text);
+
+  check:=false;
+  if (CurrentSource1[0]<>StrToFloat(Edit1.Text)) then check:=true;
+  if (CurrentSource1[1]<>StrToFloat(Edit2.Text)) then check:=true;
+  if (CurrentSource1[2]<>StrToFloat(Edit3.Text)) then check:=true;
+  if (CurrentSource1[3]<>StrToFloat(Edit4.Text)) then check:=true;
+  if (CurrentSource1[4]<>StrToFloat(Edit5.Text)) then check:=true;
+  if (CurrentSource1[5]<>StrToFloat(Edit6.Text)) then check:=true;
+  if (CurrentSource1[6]<>StrToFloat(Edit7.Text)) then check:=true;
+  if (CurrentSource1[7]<>StrToFloat(Edit8.Text)) then check:=true;
+  if (CurrentSource1[8]<>StrToFloat(Edit9.Text)) then check:=true;
+  if (CurrentSource1[9]<>StrToFloat(Edit10.Text)) then check:=true;
+  if (CurrentSource2[0]<>StrToFloat(Edit11.Text)) then check:=true;
+  if (CurrentSource2[1]<>StrToFloat(Edit12.Text)) then check:=true;
+  if (CurrentSource2[2]<>StrToFloat(Edit13.Text)) then check:=true;
+  if (CurrentSource2[3]<>StrToFloat(Edit14.Text)) then check:=true;
+  if (CurrentSource2[4]<>StrToFloat(Edit15.Text)) then check:=true;
+  if (CurrentSource2[5]<>StrToFloat(Edit16.Text)) then check:=true;
+  if (CurrentSource2[6]<>StrToFloat(Edit17.Text)) then check:=true;
+  if (CurrentSource2[7]<>StrToFloat(Edit18.Text)) then check:=true;
+  if (CurrentSource2[8]<>StrToFloat(Edit19.Text)) then check:=true;
+  if (CurrentSource2[9]<>StrToFloat(Edit20.Text)) then check:=true;
+
+   if (check=false) then exit;
+
+    TotalPointerX:=10;
+
+    ChartMin:=999;
+    ChartMax:=-999;
+
+    CurrentSource1[0]:= StrToFloat(Edit1.Text);
+    CurrentSource1[1]:= StrToFloat(Edit2.Text);
+    CurrentSource1[2]:= StrToFloat(Edit3.Text);
+    CurrentSource1[3]:= StrToFloat(Edit4.Text);
+    CurrentSource1[4]:= StrToFloat(Edit5.Text);
+    CurrentSource1[5]:= StrToFloat(Edit6.Text);
+    CurrentSource1[6]:= StrToFloat(Edit7.Text);
+    CurrentSource1[7]:= StrToFloat(Edit8.Text);
+    CurrentSource1[8]:= StrToFloat(Edit9.Text);
+    CurrentSource1[9]:= StrToFloat(Edit10.Text);
+
+    CurrentSource2[0]:= StrToFloat(Edit11.Text);
+    CurrentSource2[1]:= StrToFloat(Edit12.Text);
+    CurrentSource2[2]:= StrToFloat(Edit13.Text);
+    CurrentSource2[3]:= StrToFloat(Edit14.Text);
+    CurrentSource2[4]:= StrToFloat(Edit15.Text);
+    CurrentSource2[5]:= StrToFloat(Edit16.Text);
+    CurrentSource2[6]:= StrToFloat(Edit17.Text);
+    CurrentSource2[7]:= StrToFloat(Edit18.Text);
+    CurrentSource2[8]:= StrToFloat(Edit19.Text);
+    CurrentSource2[9]:= StrToFloat(Edit20.Text);
+
+    Edit31.Text:= Edit1.Text;
+    Edit32.Text:= Edit2.Text;
+    Edit33.Text:= Edit3.Text;
+    Edit34.Text:= Edit4.Text;
+    Edit35.Text:= Edit5.Text;
+    Edit36.Text:= Edit6.Text;
+    Edit37.Text:= Edit7.Text;
+    Edit38.Text:= Edit8.Text;
+    Edit39.Text:= Edit9.Text;
+    Edit40.Text:= Edit10.Text;
+
+    for i:=0 to TotalPointerX-1 do
+    begin
+      if (CurrentSource1[i]<ChartMin) then ChartMin:=CurrentSource1[i];
+      if (CurrentSource1[i]>ChartMax) then ChartMax:=CurrentSource1[i];
+    end;
+
+     for i:=0 to TotalPointerX-1 do
+    begin
+      if (CurrentSource2[i]<ChartMin) then ChartMin:=CurrentSource2[i];
+      if (CurrentSource2[i]>ChartMax) then ChartMax:=CurrentSource2[i];
+    end;
+
+    ChartMin:=ChartMin-1;
+
+    ChartMax:=ChartMax+1;
+
+    Chart6.Extent.YMin:=ChartMin;
+    Chart6.Extent.YMax:=ChartMax;
+    Chart6.ExtentSizeLimit.YMin:=ChartMin;
+    Chart6.ExtentSizeLimit.YMax:=ChartMax;
+
+    _Source1_.Clear;
+    _Base_.Clear;
+    _Source2_.Clear;
+    for i:=0 to TotalPointerX-1 do
+    begin
+      _Source1_.Add(i,CurrentSource1[i] );
+      _Source2_.Add(i,CurrentSource2[i] );
+    end;
+
+end;
+
 function TForm1.HText(x: integer; y: integer; s: string; bmp: TBGRABitmap): TBGRABitmap;
 var
   po2: array of TPointF;
@@ -740,6 +850,274 @@ begin
   PageControl1.PageIndex:=0;       //PLC IP
 end;
 
+procedure TForm1.Button11Click(Sender: TObject);
+var
+  i:integer;
+  FileList: TStringList;
+  P_: Integer;
+begin
+
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); ListBox1.Clear; exit; end;
+
+  ListBox1.Clear;
+
+  FileList := FindAllFiles(GetCurrentDir+'\Recipe', '*', True);
+  try
+    //ShowMessage('Found ' + IntToStr(FileList.Count) + ' files.');
+    if FileList.Count > 0 then
+    begin
+      for i := 0 to FileList.Count-1 do
+      begin
+        P_ := Pos('.Recipe', FileList.Strings[i]);
+        if (P_ >=1) then ListBox1.Items.Add(ExtractFileName(FileList.Strings[i]));
+      end;
+    end;
+  finally
+    FileList.Free;
+  end;
+
+  ListBox1.ItemIndex:=-1;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+var
+  i:integer;
+  s: string;
+  p_:integer;
+  MyIni: TIniFile;
+  //User: string;
+  //Attempts: Integer;
+  //IsActive: Boolean;
+  ResultCode: Integer;
+begin
+  //if (trim(Edit52.Text) ='') then begin Showmessage('No file to save'); exit; end;
+  if (trim(Edit52.Text) ='') then begin Edit52.Text:=FormatDateTime('DD',  Now)+'_'+FormatDateTime('MM',  Now)+'_'+FormatDateTime('YYYY',  Now)+'_'+FormatDateTime('hh',  Now)+'_'+FormatDateTime('nn',  Now)+'_'+FormatDateTime('ss',  Now) end;
+  p_:=pos('.',LowerCase(Edit52.Text));
+  if (p_=1) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('<',LowerCase(Edit52.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('>',LowerCase(Edit52.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('?',LowerCase(Edit52.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos(':',LowerCase(Edit52.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('/',LowerCase(Edit52.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('\',LowerCase(Edit52.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
+
+  p_:=pos('.recipe',LowerCase(Edit52.Text));
+  if (p_>1) then
+    s:= GetCurrentDir+'\Recipe\'+ Edit52.Text
+  else
+    s:= GetCurrentDir+'\Recipe\'+ Edit52.Text+'.Recipe';
+
+  if FileExists(s) then
+  begin
+    ResultCode := Application.MessageBox('Over write file?' + sLineBreak + '!!!', 'Confirm',MB_ICONQUESTION + MB_YESNO);
+    if (ResultCode = IDYES) then
+      begin  end
+    else
+      begin exit; end;
+  end;
+
+  //if FileExists(s) then
+  //begin
+    MyIni := TIniFile.Create(s);
+    try
+      //MyIni.WriteString('User-Settings', 'Username', 'gfgg');
+      //MyIni.WriteInteger('DB-INFO', 'MaxAttempts', 255522);
+      //MyIni.WriteBool('Settings', 'AutoLogin', true);
+      //User := MyIni.ReadString('User-Settings', 'Username', 'Guest');
+      //Attempts := MyIni.ReadInteger('DB-INFO', 'MaxAttempts', 3);
+      //IsActive := MyIni.ReadBool('Settings', 'AutoLogin', False);
+
+      MyIni.WriteString('Roller', 'Roller01', StrFloatToStr(Edit31.Text));
+      MyIni.WriteString('Roller', 'Roller02', StrFloatToStr(Edit32.Text));
+      MyIni.WriteString('Roller', 'Roller03', StrFloatToStr(Edit33.Text));
+      MyIni.WriteString('Roller', 'Roller04', StrFloatToStr(Edit34.Text));
+      MyIni.WriteString('Roller', 'Roller05', StrFloatToStr(Edit35.Text));
+      MyIni.WriteString('Roller', 'Roller06', StrFloatToStr(Edit36.Text));
+      MyIni.WriteString('Roller', 'Roller07', StrFloatToStr(Edit37.Text));
+      MyIni.WriteString('Roller', 'Roller08', StrFloatToStr(Edit38.Text));
+      MyIni.WriteString('Roller', 'Roller09', StrFloatToStr(Edit39.Text));
+      MyIni.WriteString('Roller', 'Roller10', StrFloatToStr(Edit40.Text));
+
+    finally
+      // Always free the object
+      MyIni.Free;
+    end;
+  //end
+  //else
+  if not FileExists(s) then
+  begin
+    Showmessage('Can not save file');
+  end
+  else
+    Button11Click(Sender);
+
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+var
+  i:integer;
+  s: string;
+  p_:integer;
+  MyIni: TIniFile;
+  //User: string;
+  //Attempts: Integer;
+  //IsActive: Boolean;
+  ResultCode: Integer;
+begin
+  //if (trim(Edit54.Text) ='') then begin Showmessage('No file to save'); exit; end;
+  if (trim(Edit54.Text) ='') then begin Edit54.Text:=FormatDateTime('DD',  Now)+'_'+FormatDateTime('MM',  Now)+'_'+FormatDateTime('YYYY',  Now)+'_'+FormatDateTime('hh',  Now)+'_'+FormatDateTime('nn',  Now)+'_'+FormatDateTime('ss',  Now) end;
+  p_:=pos('.',LowerCase(Edit54.Text));
+  if (p_=1) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('<',LowerCase(Edit54.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('>',LowerCase(Edit54.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('?',LowerCase(Edit54.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos(':',LowerCase(Edit54.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('/',LowerCase(Edit54.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('\',LowerCase(Edit54.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
+
+  p_:=pos('.recipe',LowerCase(Edit54.Text));
+  if (p_>1) then
+    s:= GetCurrentDir+'\Recipe\'+ Edit54.Text
+  else
+    s:= GetCurrentDir+'\Recipe\'+ Edit54.Text+'.Recipe';
+
+  if FileExists(s) then
+  begin
+    ResultCode := Application.MessageBox('Over write file?' + sLineBreak + '!!!', 'Confirm',MB_ICONQUESTION + MB_YESNO);
+    if (ResultCode = IDYES) then
+      begin  end
+    else
+      begin exit; end;
+  end;
+
+  //if FileExists(s) then
+  //begin
+    MyIni := TIniFile.Create(s);
+    try
+      //MyIni.WriteString('User-Settings', 'Username', 'gfgg');
+      //MyIni.WriteInteger('DB-INFO', 'MaxAttempts', 255522);
+      //MyIni.WriteBool('Settings', 'AutoLogin', true);
+      //User := MyIni.ReadString('User-Settings', 'Username', 'Guest');
+      //Attempts := MyIni.ReadInteger('DB-INFO', 'MaxAttempts', 3);
+      //IsActive := MyIni.ReadBool('Settings', 'AutoLogin', False);
+
+      MyIni.WriteString('Roller', 'Roller01', StrFloatToStr(Edit21.Text));
+      MyIni.WriteString('Roller', 'Roller02', StrFloatToStr(Edit22.Text));
+      MyIni.WriteString('Roller', 'Roller03', StrFloatToStr(Edit23.Text));
+      MyIni.WriteString('Roller', 'Roller04', StrFloatToStr(Edit24.Text));
+      MyIni.WriteString('Roller', 'Roller05', StrFloatToStr(Edit25.Text));
+      MyIni.WriteString('Roller', 'Roller06', StrFloatToStr(Edit26.Text));
+      MyIni.WriteString('Roller', 'Roller07', StrFloatToStr(Edit27.Text));
+      MyIni.WriteString('Roller', 'Roller08', StrFloatToStr(Edit28.Text));
+      MyIni.WriteString('Roller', 'Roller09', StrFloatToStr(Edit29.Text));
+      MyIni.WriteString('Roller', 'Roller10', StrFloatToStr(Edit30.Text));
+
+    finally
+      // Always free the object
+      MyIni.Free;
+    end;
+  //end
+  //else
+  if not FileExists(s) then
+  begin
+    Showmessage('Can not save file');
+  end
+  else
+    Button11Click(Sender);
+
+end;
+
+procedure TForm1.Button7Click(Sender: TObject);
+begin
+  Edit21.Text:= Edit41.Text;
+  Edit22.Text:= Edit42.Text;
+  Edit23.Text:= Edit43.Text;
+  Edit24.Text:= Edit44.Text;
+  Edit25.Text:= Edit45.Text;
+  Edit26.Text:= Edit46.Text;
+  Edit27.Text:= Edit47.Text;
+  Edit28.Text:= Edit48.Text;
+  Edit29.Text:= Edit49.Text;
+  Edit30.Text:= Edit50.Text;
+end;
+
+procedure TForm1.Button8Click(Sender: TObject);
+var
+  ResultCode: Integer;
+begin
+  Edit21.Text:= StrFloatToStr(Edit21.Text);
+  Edit22.Text:= StrFloatToStr(Edit22.Text);
+  Edit23.Text:= StrFloatToStr(Edit23.Text);
+  Edit24.Text:= StrFloatToStr(Edit24.Text);
+  Edit25.Text:= StrFloatToStr(Edit25.Text);
+  Edit26.Text:= StrFloatToStr(Edit26.Text);
+  Edit27.Text:= StrFloatToStr(Edit27.Text);
+  Edit28.Text:= StrFloatToStr(Edit28.Text);
+  Edit29.Text:= StrFloatToStr(Edit29.Text);
+  Edit30.Text:= StrFloatToStr(Edit30.Text);
+
+  ResultCode := Application.MessageBox('Transfer to PLC?' + sLineBreak + '!!!', 'Confirm',MB_ICONQUESTION + MB_YESNO);
+  if (ResultCode = IDYES) then
+    begin  end
+  else
+    begin exit; end;
+
+  Edit1.Text:= Edit21.Text;
+  Edit2.Text:= Edit22.Text;
+  Edit3.Text:= Edit23.Text;
+  Edit4.Text:= Edit24.Text;
+  Edit5.Text:= Edit25.Text;
+  Edit6.Text:= Edit26.Text;
+  Edit7.Text:= Edit27.Text;
+  Edit8.Text:= Edit28.Text;
+  Edit9.Text:= Edit29.Text;
+  Edit10.Text:= Edit30.Text;
+
+  Edit31.Text:= Edit21.Text;
+  Edit32.Text:= Edit22.Text;
+  Edit33.Text:= Edit23.Text;
+  Edit34.Text:= Edit24.Text;
+  Edit35.Text:= Edit25.Text;
+  Edit36.Text:= Edit26.Text;
+  Edit37.Text:= Edit27.Text;
+  Edit38.Text:= Edit28.Text;
+  Edit39.Text:= Edit29.Text;
+  Edit40.Text:= Edit30.Text;
+
+  Transfer();
+
+end;
+
+procedure TForm1.Button9Click(Sender: TObject);
+begin
+  Edit21.Text:= Edit31.Text;
+  Edit22.Text:= Edit32.Text;
+  Edit23.Text:= Edit33.Text;
+  Edit24.Text:= Edit34.Text;
+  Edit25.Text:= Edit35.Text;
+  Edit26.Text:= Edit36.Text;
+  Edit27.Text:= Edit37.Text;
+  Edit28.Text:= Edit38.Text;
+  Edit29.Text:= Edit39.Text;
+  Edit30.Text:= Edit40.Text;
+end;
+
 procedure TForm1.ECSpeedBtn2Click(Sender: TObject);
 begin
   PageControl1.PageIndex:=1;     //Overview
@@ -826,6 +1204,17 @@ begin
     CurrentSource2[8]:= StrToFloat(Edit19.Text);
     CurrentSource2[9]:= StrToFloat(Edit20.Text);
 
+    Edit31.Text:= Edit1.Text;
+    Edit32.Text:= Edit2.Text;
+    Edit33.Text:= Edit3.Text;
+    Edit34.Text:= Edit4.Text;
+    Edit35.Text:= Edit5.Text;
+    Edit36.Text:= Edit6.Text;
+    Edit37.Text:= Edit7.Text;
+    Edit38.Text:= Edit8.Text;
+    Edit39.Text:= Edit9.Text;
+    Edit40.Text:= Edit10.Text;
+
     for i:=0 to TotalPointerX-1 do
     begin
       if (CurrentSource1[i]<ChartMin) then ChartMin:=CurrentSource1[i];
@@ -861,7 +1250,30 @@ end;
 procedure TForm1.FormCreate(Sender: TObject);
 var
   i:integer;
+  FileList: TStringList;
+  P_: Integer;
 begin
+
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); Application.Terminate; end;
+
+  ListBox1.Clear;
+
+  FileList := FindAllFiles(GetCurrentDir+'\Recipe', '*', True);
+  try
+    //ShowMessage('Found ' + IntToStr(FileList.Count) + ' files.');
+    if FileList.Count > 0 then
+    begin
+      for i := 0 to FileList.Count-1 do
+      begin
+        P_ := Pos('.Recipe', FileList.Strings[i]);
+        if (P_ >=1) then ListBox1.Items.Add(ExtractFileName(FileList.Strings[i]));
+      end;
+    end;
+  finally
+    FileList.Free;
+  end;
+
+  ListBox1.ItemIndex:=-1;
 
   StartRecord:=false;
   Directory_:='';
@@ -994,6 +1406,66 @@ procedure TForm1.Image5MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Inte
 begin
   MouseX:=X;
   MouseY:=Y;
+end;
+
+procedure TForm1.ListBox1Click(Sender: TObject);
+var
+  i:integer;
+  s: string;
+
+  MyIni: TIniFile;
+  //User: string;
+  //Attempts: Integer;
+  //IsActive: Boolean;
+begin
+
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
+
+  s:= GetCurrentDir+'\Recipe\'+ ListBox1.Items[ListBox1.ItemIndex];
+
+  Edit51.Text:=ListBox1.Items[ListBox1.ItemIndex];
+
+  if FileExists(s) then
+  begin
+    MyIni := TIniFile.Create(s);
+    try
+      //MyIni.WriteString('User-Settings', 'Username', 'gfgg');
+      //MyIni.WriteInteger('DB-INFO', 'MaxAttempts', 255522);
+      //MyIni.WriteBool('Settings', 'AutoLogin', true);
+      //User := MyIni.ReadString('User-Settings', 'Username', 'Guest');
+      //Attempts := MyIni.ReadInteger('DB-INFO', 'MaxAttempts', 3);
+      //IsActive := MyIni.ReadBool('Settings', 'AutoLogin', False);
+
+      Edit41.Text := MyIni.ReadString('Roller', 'Roller01', '0.0');
+      Edit41.Text:=StrFloatToStr(Edit41.Text);
+      Edit42.Text := MyIni.ReadString('Roller', 'Roller02', '0.0');
+      Edit42.Text:=StrFloatToStr(Edit42.Text);
+      Edit43.Text := MyIni.ReadString('Roller', 'Roller03', '0.0');
+      Edit43.Text:=StrFloatToStr(Edit43.Text);
+      Edit44.Text := MyIni.ReadString('Roller', 'Roller04', '0.0');
+      Edit44.Text:=StrFloatToStr(Edit44.Text);
+      Edit45.Text := MyIni.ReadString('Roller', 'Roller05', '0.0');
+      Edit45.Text:=StrFloatToStr(Edit45.Text);
+      Edit46.Text := MyIni.ReadString('Roller', 'Roller06', '0.0');
+      Edit46.Text:=StrFloatToStr(Edit46.Text);
+      Edit47.Text := MyIni.ReadString('Roller', 'Roller07', '0.0');
+      Edit47.Text:=StrFloatToStr(Edit47.Text);
+      Edit48.Text := MyIni.ReadString('Roller', 'Roller08', '0.0');
+      Edit48.Text:=StrFloatToStr(Edit48.Text);
+      Edit49.Text := MyIni.ReadString('Roller', 'Roller09', '0.0');
+      Edit49.Text:=StrFloatToStr(Edit49.Text);
+      Edit50.Text := MyIni.ReadString('Roller', 'Roller10', '0.0');
+      Edit50.Text:=StrFloatToStr(Edit50.Text);
+    finally
+      // Always free the object
+      MyIni.Free;
+    end;
+  end
+  else
+  begin
+    Showmessage('File not found');
+  end;
+
 end;
 
 procedure TForm1.SSCClick(Sender: TObject);
