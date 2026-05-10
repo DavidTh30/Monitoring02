@@ -102,13 +102,12 @@ type
   private
 
   public
-    Function RepairIPAddress(s: string):string;
     Function CheckDirectory(C_DNAME: string;Debug_:TMemo):boolean; //True=Error
     procedure ScreenshotToFile(const Filename: string; Monitor_: integer);
     function get_ss_of(window: hwnd; var bmp: graphics.TBitmap): integer;
     function StrIntToStr(Sender: string): string;
     function StrFloatToStr(Sender: string): string;
-    procedure updatePhoto();
+    procedure updatePhoto(x: integer; y: integer);
     function VLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
     function Cyc(x: integer; y: integer; xr:integer; yr:integer; Act: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
     function HLevel(x: integer; y: integer; percent: float; Sufix: string; bmp: TBGRABitmap): TBGRABitmap;
@@ -137,6 +136,9 @@ var
   S_Name:string;
   File_OK:Boolean;
   Txt:String;
+  t1:integer;
+  MouseX:integer;
+  MouseY:integer;
 
 implementation
 
@@ -320,6 +322,63 @@ begin
     //i1 := i1+1;
     //if i1 >=360 then begin i1:=0;
   end;
+
+  De_Pixel:=round(50/(100/100)*(135/100));
+  for i1 := t1 to De_Pixel+t1 do
+  begin
+    Act_Percent:=round((i1+90)/135*100);
+    t:=DegToRad(i1);
+
+    c:=$00F0F000;
+
+    r_t:=Radian-3;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    r_t:=Radian-4;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    r_t:=Radian+-5;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    r_t:=Radian-6;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    t:=DegToRad(i1+180);
+
+    c:=$00F0F000;
+
+    r_t:=Radian-3;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    r_t:=Radian-4;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    r_t:=Radian+-5;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+
+    r_t:=Radian-6;
+    x_ := round((0*cos(t)) + (r_t*sin(t)) + Orgx);
+    y_ := round((0*sin(t)) - (r_t*cos(t)) + Orgy);
+    bmp.Canvas.Pixels[x_,y_]:=c;
+  end;
+
+  t1 := t1+2;
+  if t1 >=360 then begin t1:=0; end;
+
   //bmp.InvalidateBitmap;
   //bmp.Canvas2D.stroke();
 
@@ -423,7 +482,7 @@ begin
   ReleaseDC(GetDesktopWindow, dc);
 end;
 
-procedure TForm1.updatePhoto();
+procedure TForm1.updatePhoto(x: integer; y: integer);
 var
   bmp: TBGRABitmap;
   x_ : Integer;
@@ -439,12 +498,35 @@ begin
   Orgx := 122;
   Orgy := Round(Image5.Height/2);
   //Orgy := 97;
-  Orgx := 0;
-  Orgy := 0;
+  Orgx := X;
+  Orgy := Y;
   bmp := TBGRABitmap.Create(Image5.Width,Image5.Height, ColorToBGRA(ColorToRGB(clWhite)));
 
   bmp.Canvas2D.strokeStyle ('rgb(50,50,50)');
   bmp.Canvas2D.stroke();
+
+  bmp.Canvas2D.lineWidth:=1;
+  bmp.Canvas2D.fillStyle('rgb(200,200,200)');
+  for i := 0 to Image5.Width do
+  begin
+    x_:= Orgx;
+    y_:= Orgy;
+    bmp.Canvas2D.fillRect(i,y_,1,1);
+  end;
+  for i := 0 to Round(Image5.Width/4) do
+  begin
+    for i2 := Orgy-3 to Orgy+3 do bmp.Canvas2D.fillRect(i*4,i2,1,1);
+  end;
+  for i := 0 to Image5.Height do
+  begin
+    x_:= Orgx;
+    y_:= Orgy;
+    bmp.Canvas2D.fillRect(x_,i,1,1);
+  end;
+  for i := 0 to Round(Image5.Height/4) do
+  begin
+    for i2 := Orgx-3 to Orgx+3 do bmp.Canvas2D.fillRect(i2,i*4,1,1);
+  end;
 
   x_:=120;
   for i := 0 to 9 do
@@ -474,6 +556,17 @@ begin
   bmp:=HLevel(100,160+60,10,'%',bmp);
   bmp:=HLevel(100,160+80,20,'%',bmp);
 
+  bmp:=VLevel(250+0,160,-40,'%',bmp);
+  bmp:=VLevel(250+20,160,-10,'%',bmp);
+  bmp:=VLevel(250+40,160,5,'%',bmp);
+  bmp:=VLevel(250+60,160,10,'%',bmp);
+  bmp:=VLevel(250+80,160,20,'%',bmp);
+  bmp:=VLevel(250+100,160,30,'%',bmp);
+  bmp:=VLevel(250+120,160,40,'%',bmp);
+  bmp:=VLevel(250+140,160,50,'%',bmp);
+  bmp:=VLevel(250+160,160,60,'%',bmp);
+  bmp:=VLevel(250+180,160,70,'%',bmp);
+
   bmp:=HLevel(500,160+0,30,'%',bmp);
   bmp:=HLevel(500,160+20,40,'%',bmp);
   bmp:=HLevel(500,160+40,50,'%',bmp);
@@ -481,9 +574,23 @@ begin
 
   bmp:=HLevel(640,160+0,70,'%',bmp);
 
+  bmp:=HText(3,3,X.ToString+','+Y.ToString,bmp);
+  bmp:=HText(118,27,'1',bmp);
+  bmp:=HText(199,54,'2',bmp);
+  bmp:=HText(279,27,'3',bmp);
+  bmp:=HText(358,54,'4',bmp);
+  bmp:=HText(439,27,'5',bmp);
+  bmp:=HText(498,72,'6',bmp);
+  bmp:=HText(538,46,'7',bmp);
+  bmp:=HText(578,72,'8',bmp);
+  bmp:=HText(618,46,'9',bmp);
+  bmp:=HText(675,54,'10',bmp);
+
   bmp.Canvas2D.resetTransform;
 
-  bmp.Draw(Image5.Canvas,0,0);
+  bmp.Draw(Image5.Canvas,0,0,true);
+  //bmp.Draw(Canvas, 0, 0, True); // draw the bitmap in opaque mode (faster)
+
   bmp.Free;
 
   image5.Refresh;
@@ -547,109 +654,6 @@ begin
     end;
   end;
 
-end;
-
-Function TForm1.RepairIPAddress(s: string):string;
-var
-  i:integer;
-  k:integer;
-  s2:string;
-  c:integer;
-  A_s: TStringArray;
-begin
-
-  //Edit1.Text:=chr(ord('0'));
-  //Edit1.Text:=IntToStr(ord('9');
-
-  s:=Trim(s);
-  //s:=leftstr(s,15);
-
-  s2:='';
-  for i:=1 to length(s) do
-  begin
-    if (((ord(s[i]) >= 48) and (ord(s[i]) <= 57)) or (s[i] = '.')) then s2:=s2+s[i];
-  end;
-  s:=s2;
-
-  if length(s) = 0 then s:=s+'0.0.0.0';
-
-  if (s[1] = '.') then s:='0'+s;
-
-  k:=0;
-  for i:=1 to length(s) do
-  begin
-    if(s[i] = '.') then k:=k+1;
-  end;
-  if k=0 then s:=s+'.0.0.0';
-  if k=1 then s:=s+'.0.0';
-  if k=2 then s:=s+'.0';
-  if s[length(s)]='.' then s:=s+'0';
-
-  k:=0;
-  c:=0;
-  s2:='';
-  for i:=1 to length(s) do
-  begin
-    if(s[i] = '.') then begin k:=k+1; c:=0; end;
-    if (k>3) then
-      begin
-        s2:=s2;
-      end
-    else
-      begin
-        if not(s[i] = '.')then c:=c+1;
-        if (c<=3) then s2:=s2+s[i];
-      end;
-  end;
-  s:=s2;
-
-  A_s:=SplitString(s,'.');
-
-  k:=0;
-  Try
-    k:=StrToInt(A_s[0]);
-  except
-    On E : EConvertError do
-      k:=0;
-  end;
-  if (k>255) then k:=255;
-  if (k<0) then k:=0;
-  s:=IntToStr(k);
-
-  k:=0;
-  Try
-    k:=StrToInt(A_s[1]);
-  except
-    On E : EConvertError do
-      k:=0;
-  end;
-  if (k>255) then k:=255;
-  if (k<0) then k:=0;
-  s:=s+'.'+IntToStr(k);
-
-  k:=0;
-  Try
-    k:=StrToInt(A_s[2]);
-  except
-    On E : EConvertError do
-      k:=0;
-  end;
-  if (k>255) then k:=255;
-  if (k<0) then k:=0;
-  s:=s+'.'+IntToStr(k);
-
-  k:=0;
-  Try
-    k:=StrToInt(A_s[3]);
-  except
-    On E : EConvertError do
-      k:=0;
-  end;
-  if (k>255) then k:=255;
-  if (k<0) then k:=0;
-  s:=s+'.'+IntToStr(k);
-
-  result := s;
 end;
 
 procedure TForm1.ECSpeedBtn1Click(Sender: TObject);
@@ -788,6 +792,10 @@ begin
 
   TotalPointerX:=10;
 
+  t1:=0;
+  MouseX:=0;
+  MouseY:=0;
+
   Setlength(Base_,TotalPointerX);
   Setlength(CurrentSource1,TotalPointerX);
   Setlength(TargetSource1,TotalPointerX);
@@ -856,7 +864,7 @@ begin
     //_Base_.Add(i,Base_[i] );
     _Source2_.Add(i+1,CurrentSource2[i] );
   end;
-  updatePhoto();
+  updatePhoto(MouseX,MouseY);
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
@@ -904,117 +912,9 @@ begin
 end;
 
 procedure TForm1.Image5MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-var
-  bmp: TBGRABitmap;
-  x_ : Integer;
-  y_ : Integer;
-  i : Integer;
-  i2 : Integer;
-  Orgx: integer;
-  Orgy: integer;
-  i3 : integer;
 begin
-
-  //Orgx := Round(Image5.Width/2);
-  Orgx := 122;
-  Orgy := Round(Image5.Height/2);
-  //Orgy := 97;
-  Orgx := X;
-  Orgy := Y;
-  bmp := TBGRABitmap.Create(Image5.Width,Image5.Height, ColorToBGRA(ColorToRGB(clWhite)));
-
-  bmp.Canvas2D.strokeStyle ('rgb(50,50,50)');
-  bmp.Canvas2D.stroke();
-
-  bmp.Canvas2D.lineWidth:=1;
-  bmp.Canvas2D.fillStyle('rgb(200,200,200)');
-  for i := 0 to Image5.Width do
-  begin
-    x_:= Orgx;
-    y_:= Orgy;
-    bmp.Canvas2D.fillRect(i,y_,1,1);
-  end;
-  for i := 0 to Round(Image5.Width/4) do
-  begin
-    for i2 := Orgy-3 to Orgy+3 do bmp.Canvas2D.fillRect(i*4,i2,1,1);
-  end;
-  for i := 0 to Image5.Height do
-  begin
-    x_:= Orgx;
-    y_:= Orgy;
-    bmp.Canvas2D.fillRect(x_,i,1,1);
-  end;
-  for i := 0 to Round(Image5.Height/4) do
-  begin
-    for i2 := Orgx-3 to Orgx+3 do bmp.Canvas2D.fillRect(i2,i*4,1,1);
-  end;
-
-  x_:=120;
-  for i := 0 to 9 do
-  begin
-    i2:=80; i3:=39;
-    if (i=0) then i2:=0;
-    if (i=5)or(i=9) then begin i2:=60; end;
-    if (i>5) and (i<9) then begin i2:=40; end;
-    if (i>4) and (i<9) then begin i3:=Round(i3/2); end;
-    if i mod 2 = 0 then  y_:=Round(Image5.Height/3);
-    if i mod 2 <> 0 then  y_:=Round(Image5.Height/3*1.3);
-
-    x_:=x_+i2;
-
-    bmp:=Cyc(x_,y_,i3,i3,108+x_,'rpm',bmp);
-
-  end;
-
-  //bmp.Canvas2D.resetTransform;
-
-  bmp.Canvas2D.translate(0,0);
-  bmp.Canvas2D.rotate(0);
-
-  bmp:=HLevel(100,160+0,-40,'%',bmp);
-  bmp:=HLevel(100,160+20,-10,'%',bmp);
-  bmp:=HLevel(100,160+40,5,'%',bmp);
-  bmp:=HLevel(100,160+60,10,'%',bmp);
-  bmp:=HLevel(100,160+80,20,'%',bmp);
-
-  bmp:=VLevel(250+0,160,-40,'%',bmp);
-  bmp:=VLevel(250+20,160,-10,'%',bmp);
-  bmp:=VLevel(250+40,160,5,'%',bmp);
-  bmp:=VLevel(250+60,160,10,'%',bmp);
-  bmp:=VLevel(250+80,160,20,'%',bmp);
-  bmp:=VLevel(250+100,160,30,'%',bmp);
-  bmp:=VLevel(250+120,160,40,'%',bmp);
-  bmp:=VLevel(250+140,160,50,'%',bmp);
-  bmp:=VLevel(250+160,160,60,'%',bmp);
-  bmp:=VLevel(250+180,160,70,'%',bmp);
-
-  bmp:=HLevel(500,160+0,30,'%',bmp);
-  bmp:=HLevel(500,160+20,40,'%',bmp);
-  bmp:=HLevel(500,160+40,50,'%',bmp);
-  bmp:=HLevel(500,160+60,60,'%',bmp);
-
-  bmp:=HLevel(640,160+0,70,'%',bmp);
-
-  bmp:=HText(3,3,X.ToString+','+Y.ToString,bmp);
-  bmp:=HText(118,27,'1',bmp);
-  bmp:=HText(199,54,'2',bmp);
-  bmp:=HText(279,27,'3',bmp);
-  bmp:=HText(358,54,'4',bmp);
-  bmp:=HText(439,27,'5',bmp);
-  bmp:=HText(498,72,'6',bmp);
-  bmp:=HText(538,46,'7',bmp);
-  bmp:=HText(578,72,'8',bmp);
-  bmp:=HText(618,46,'9',bmp);
-  bmp:=HText(675,54,'10',bmp);
-
-  bmp.Canvas2D.resetTransform;
-
-  bmp.Draw(Image5.Canvas,0,0,true);
-  //bmp.Draw(Canvas, 0, 0, True); // draw the bitmap in opaque mode (faster)
-
-  bmp.Free;
-
-  image5.Refresh;
+  MouseX:=X;
+  MouseY:=Y;
 end;
 
 procedure TForm1.SSCClick(Sender: TObject);
@@ -1052,18 +952,18 @@ begin
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
-var
-  i:integer;
-  check:boolean;
 begin
+  timer1.Enabled:=false;
+  Application.ProcessMessages;
   if (PageControl1.TabIndex=2) then
   begin
 
-
+  updatePhoto(MouseX,MouseY);
 
 
 
   end;
+  timer1.Enabled:=true;
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
