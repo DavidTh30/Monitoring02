@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
-  ExtCtrls, Menus, ECAccordion, ECEditBtns, ECSwitch, IniFiles,
+  ExtCtrls, Menus, ECAccordion, ECEditBtns, ECSwitch, IniFiles, DwmApi,
   TAGraph, TASources, TASeries, TATransformations, Math, windows, TAChartUtils,
   Process, BGRABitmap, BGRABitmapTypes, FileUtil, LCLType, Types;
 
@@ -698,7 +698,11 @@ var
 begin
   result := 0; // 0 = success
   if not IsWindow(window) then begin showmessage('Not windows'); exit(1); end;
-  if not (DwmGetWindowAttribute(window, 9{DWMWA_EXTENDED_FRAME_BOUNDS}, @outer, sizeof(outer)) = S_OK) then begin showmessage('Can not get attribute'); exit(2);  end;
+  if not (DwmGetWindowAttribute(window, DWMWA_EXTENDED_FRAME_BOUNDS, @outer, sizeof(outer)) = S_OK) then
+  begin
+    //showmessage('Can not get attribute'); exit(2);
+    Windows.GetWindowRect(window, @outer);
+  end;
   bmp.Width := outer.Width;
   bmp.Height := outer.Height;
   bmp.PixelFormat := pf24bit;
