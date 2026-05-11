@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ComCtrls, StdCtrls,
   ExtCtrls, Menus, ECAccordion, ECEditBtns, ECSwitch, IniFiles,
   TAGraph, TASources, TASeries, TATransformations, Math, windows, TAChartUtils,
-  Process, BGRABitmap, BGRABitmapTypes, FileUtil, LCLType;
+  Process, BGRABitmap, BGRABitmapTypes, FileUtil, LCLType, Types;
 
 function DwmGetWindowAttribute(hwnd: HWND; dwAttribute: DWORD; pvAttribute: PVOID; cbAttribute: DWORD): HRESULT; stdcall; external 'dwmapi.dll';
 
@@ -21,10 +21,19 @@ type
     AccordionItem2: TAccordionItem;
     Button1: TButton;
     Button11: TButton;
+    Button12: TButton;
     Button2: TButton;
     Button3: TButton;
     Button4: TButton;
     Button5: TButton;
+    Chart2LineSeries2: TLineSeries;
+    Chart6LineSeries3: TLineSeries;
+    Chart6LineSeries4: TLineSeries;
+    Chart7: TChart;
+    CheckBox1: TCheckBox;
+    CheckBox2: TCheckBox;
+    CheckBox3: TCheckBox;
+    ClearName1: TButton;
     Button7: TButton;
     Button8: TButton;
     Button9: TButton;
@@ -37,6 +46,8 @@ type
     ChartMenu: TPopupMenu;
     ChartRefreshMenu: TMenuItem;
     ChartZoomOutMenu: TMenuItem;
+    ClearName2: TButton;
+    ClearName3: TButton;
     ECAccordion1: TECAccordion;
     ECSpeedBtn1: TECSpeedBtn;
     ECSpeedBtn2: TECSpeedBtn;
@@ -101,9 +112,11 @@ type
     GroupBox2: TGroupBox;
     GroupBox3: TGroupBox;
     Image2: TImage;
+    Image3: TImage;
     Image5: TImage;
     Label1: TLabel;
     Label19: TLabel;
+    Label2: TLabel;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
@@ -114,6 +127,7 @@ type
     Label27: TLabel;
     Label28: TLabel;
     Label29: TLabel;
+    Label3: TLabel;
     Label30: TLabel;
     Label31: TLabel;
     Label32: TLabel;
@@ -144,13 +158,21 @@ type
     Label57: TLabel;
     Label58: TLabel;
     Label59: TLabel;
+    Label_Source10: TLabel;
+    Label_Source11: TLabel;
     Label_Source7: TLabel;
     Label_Source8: TLabel;
+    Label_Source9: TLabel;
     ListBox1: TListBox;
+    ListBox2: TListBox;
+    ListBox3: TListBox;
     Memo1: TMemo;
     MenuItem1: TMenuItem;
     PageControl1: TPageControl;
     Shape10: TShape;
+    Shape11: TShape;
+    Shape12: TShape;
+    Shape13: TShape;
     Shape9: TShape;
     SSC: TMenuItem;
     StatusBar1: TStatusBar;
@@ -161,15 +183,27 @@ type
     TabSheet5: TTabSheet;
     Timer1: TTimer;
     Timer2: TTimer;
-    _Base_: TListChartSource;
+    _Base01_: TListChartSource;
+    _Base02: TListChartSource;
     _Source1_: TListChartSource;
+    _Source3: TListChartSource;
     _Source2_: TListChartSource;
+    _Source4: TListChartSource;
     procedure Button11Click(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
     procedure Button5Click(Sender: TObject);
     procedure Button7Click(Sender: TObject);
     procedure Button8Click(Sender: TObject);
     procedure Button9Click(Sender: TObject);
+    procedure CheckBox1EditingDone(Sender: TObject);
+    procedure CheckBox2EditingDone(Sender: TObject);
+    procedure CheckBox3EditingDone(Sender: TObject);
+    procedure ClearName1Click(Sender: TObject);
+    procedure ClearName2Click(Sender: TObject);
+    procedure ClearName3Click(Sender: TObject);
     procedure ECSpeedBtn1Click(Sender: TObject);
     procedure ECSpeedBtn2Click(Sender: TObject);
     procedure ECSpeedBtn3Click(Sender: TObject);
@@ -181,6 +215,8 @@ type
     procedure Image2Click(Sender: TObject);
     procedure Image5MouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure ListBox1Click(Sender: TObject);
+    procedure ListBox2Click(Sender: TObject);
+    procedure ListBox3Click(Sender: TObject);
     procedure SSCClick(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure Timer2Timer(Sender: TObject);
@@ -207,6 +243,9 @@ var
   TargetSource1: array of float;
   CurrentSource2: array of float;
   TargetSource2: array of float;
+
+  TargetSource3: array of float;
+  TargetSource4: array of float;
 
   TotalPointerX:integer;
   ChartMin:float;
@@ -324,7 +363,7 @@ begin
     Chart6.ExtentSizeLimit.YMax:=ChartMax;
 
     _Source1_.Clear;
-    _Base_.Clear;
+    _Base01_.Clear;
     _Source2_.Clear;
     for i:=0 to TotalPointerX-1 do
     begin
@@ -658,8 +697,8 @@ var
   dc: HDC;
 begin
   result := 0; // 0 = success
-  if not IsWindow(window) then exit(1);
-  if not (DwmGetWindowAttribute(window, 9{DWMWA_EXTENDED_FRAME_BOUNDS}, @outer, sizeof(outer)) = S_OK) then exit(2);
+  if not IsWindow(window) then begin showmessage('Not windows'); exit(1); end;
+  if not (DwmGetWindowAttribute(window, 9{DWMWA_EXTENDED_FRAME_BOUNDS}, @outer, sizeof(outer)) = S_OK) then begin showmessage('Can not get attribute'); exit(2);  end;
   bmp.Width := outer.Width;
   bmp.Height := outer.Height;
   bmp.PixelFormat := pf24bit;
@@ -855,11 +894,40 @@ var
   i:integer;
   FileList: TStringList;
   P_: Integer;
+  s:string;
+  s2:string;
+  s3:string;
+
+  Select02:integer;
+  Select03:integer;
 begin
 
   if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); ListBox1.Clear; exit; end;
 
+  Select02:=-1;
+  Select03:=-1;
+
+  if( ListBox2.ItemIndex=ListBox1.ItemIndex) then Select02:=ListBox1.ItemIndex;
+  if( ListBox3.ItemIndex=ListBox1.ItemIndex) then Select03:=ListBox1.ItemIndex;
+
+  if (ListBox1.ItemIndex>=0) then
+    s:=ListBox1.Items[ListBox1.ItemIndex]
+  else
+    s:='';
+
+  if (ListBox2.ItemIndex>=0) then
+    s2:=ListBox2.Items[ListBox2.ItemIndex]
+  else
+    s2:='';
+
+  if (ListBox3.ItemIndex>=0) then
+    s3:=ListBox3.Items[ListBox3.ItemIndex]
+  else
+    s3:='';
+
   ListBox1.Clear;
+  ListBox2.Clear;
+  ListBox3.Clear;
 
   FileList := FindAllFiles(GetCurrentDir+'\Recipe', '*', True);
   try
@@ -877,6 +945,96 @@ begin
   end;
 
   ListBox1.ItemIndex:=-1;
+  ListBox2.ItemIndex:=-1;
+  ListBox3.ItemIndex:=-1;
+
+  for i:=0 to  ListBox1.Count-1 do
+  begin
+    if (ListBox1.Items[i]=s) then  begin ListBox1.ItemIndex:=i; Break; end;
+  end;
+
+  ListBox2.Items.Assign(ListBox1.Items);
+  ListBox3.Items.Assign(ListBox1.Items);
+
+  for i:=0 to  ListBox2.Count-1 do
+  begin
+    if (ListBox2.Items[i]=s2) then  begin ListBox2.ItemIndex:=i; Break; end;
+  end;
+
+  for i:=0 to  ListBox3.Count-1 do
+  begin
+    if (ListBox3.Items[i]=s3) then  begin ListBox3.ItemIndex:=i; Break; end;
+  end;
+
+  if (Select02>=0) then ListBox2.ItemIndex:=Select02;
+  if (Select03>=0) then ListBox3.ItemIndex:=Select03;
+
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+var
+  s_Source:string;
+  s_Modify:string;
+  i:integer;
+  p_:integer;
+  ResultCode:integer;
+begin
+  if (ListBox1.ItemIndex<0) then begin Showmessage('No file select'); exit;  end;
+
+  //if (trim(Edit51.Text) ='') then begin Showmessage('No file to save'); exit; end;
+  if (trim(Edit51.Text) ='') then begin Edit51.Text:=FormatDateTime('DD',  Now)+'_'+FormatDateTime('MM',  Now)+'_'+FormatDateTime('YYYY',  Now)+'_'+FormatDateTime('hh',  Now)+'_'+FormatDateTime('nn',  Now)+'_'+FormatDateTime('ss',  Now) end;
+  p_:=pos('.',LowerCase(Edit51.Text));
+  if (p_=1) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('<',LowerCase(Edit51.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('>',LowerCase(Edit51.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('?',LowerCase(Edit51.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos(':',LowerCase(Edit51.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('/',LowerCase(Edit51.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('\',LowerCase(Edit51.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+
+  p_:=pos('.recipe',LowerCase(Edit51.Text));
+  if (p_>1) then
+    Edit51.Text := Edit51.Text
+  else
+    Edit51.Text := Edit51.Text+'.Recipe';
+
+  s_Source:= GetCurrentDir+'\Recipe\'+ ListBox1.Items[ListBox1.ItemIndex];
+  s_Modify:= GetCurrentDir+'\Recipe\'+ Edit51.Text;
+
+  if not FileExists(s_Source) then
+  begin
+    Showmessage('File not exists');
+  end
+  else
+  begin
+
+    ResultCode := Application.MessageBox('Rename recipe' + sLineBreak + '!!!', 'Confirm',MB_ICONQUESTION + MB_YESNO);
+    if (ResultCode = IDYES) then
+    begin  end
+    else
+    begin exit; end;
+
+    if RenameFile(PChar(s_Source),PChar(s_Modify)) then
+    begin
+      Showmessage('File renamed successfully');
+    end
+    else
+      Showmessage('Error: Unable to renamed file');
+  end;
+
+  ListBox1.ItemIndex:=-1;
+  Button11Click(Sender);
+  if FileExists(s_Modify) then
+  for i:=0 to ListBox1.Count-1 do
+  begin
+    if (ListBox1.Items[i] = Edit51.Text  ) then  begin ListBox1.ItemIndex:=i; Break; end;
+  end;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -911,9 +1069,11 @@ begin
 
   p_:=pos('.recipe',LowerCase(Edit52.Text));
   if (p_>1) then
-    s:= GetCurrentDir+'\Recipe\'+ Edit52.Text
+    Edit52.Text:= Edit52.Text
   else
-    s:= GetCurrentDir+'\Recipe\'+ Edit52.Text+'.Recipe';
+    Edit52.Text:= Edit52.Text+'.Recipe';
+
+  s:= GetCurrentDir+'\Recipe\'+ Edit52.Text;
 
   if FileExists(s) then
   begin
@@ -961,6 +1121,126 @@ begin
 
 end;
 
+procedure TForm1.Button3Click(Sender: TObject);
+var
+  i:integer;
+  s: string;
+  p_:integer;
+  MyIni: TIniFile;
+  //User: string;
+  //Attempts: Integer;
+  //IsActive: Boolean;
+  ResultCode: Integer;
+begin
+  //if (trim(Edit53.Text) ='') then begin Showmessage('No file to save'); exit; end;
+  if (trim(Edit53.Text) ='') then begin Edit53.Text:=FormatDateTime('DD',  Now)+'_'+FormatDateTime('MM',  Now)+'_'+FormatDateTime('YYYY',  Now)+'_'+FormatDateTime('hh',  Now)+'_'+FormatDateTime('nn',  Now)+'_'+FormatDateTime('ss',  Now) end;
+  p_:=pos('.',LowerCase(Edit53.Text));
+  if (p_=1) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('<',LowerCase(Edit53.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('>',LowerCase(Edit53.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('?',LowerCase(Edit53.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos(':',LowerCase(Edit53.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('/',LowerCase(Edit53.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+  p_:=pos('\',LowerCase(Edit53.Text));
+  if (p_>0) then begin Showmessage('error file name'); exit; end;
+
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
+
+  p_:=pos('.recipe',LowerCase(Edit53.Text));
+  if (p_>1) then
+    Edit53.Text := Edit53.Text
+  else
+    Edit53.Text := Edit53.Text+'.Recipe';
+
+  s:= GetCurrentDir+'\Recipe\'+ Edit53.Text;
+
+  if FileExists(s) then
+  begin
+    ResultCode := Application.MessageBox('Over write file?' + sLineBreak + '!!!', 'Confirm',MB_ICONQUESTION + MB_YESNO);
+    if (ResultCode = IDYES) then
+      begin  end
+    else
+      begin exit; end;
+  end;
+
+  //if FileExists(s) then
+  //begin
+    MyIni := TIniFile.Create(s);
+    try
+      //MyIni.WriteString('User-Settings', 'Username', 'gfgg');
+      //MyIni.WriteInteger('DB-INFO', 'MaxAttempts', 255522);
+      //MyIni.WriteBool('Settings', 'AutoLogin', true);
+      //User := MyIni.ReadString('User-Settings', 'Username', 'Guest');
+      //Attempts := MyIni.ReadInteger('DB-INFO', 'MaxAttempts', 3);
+      //IsActive := MyIni.ReadBool('Settings', 'AutoLogin', False);
+
+      MyIni.WriteString('Roller', 'Roller01', StrFloatToStr(Edit41.Text));
+      MyIni.WriteString('Roller', 'Roller02', StrFloatToStr(Edit42.Text));
+      MyIni.WriteString('Roller', 'Roller03', StrFloatToStr(Edit43.Text));
+      MyIni.WriteString('Roller', 'Roller04', StrFloatToStr(Edit44.Text));
+      MyIni.WriteString('Roller', 'Roller05', StrFloatToStr(Edit45.Text));
+      MyIni.WriteString('Roller', 'Roller06', StrFloatToStr(Edit46.Text));
+      MyIni.WriteString('Roller', 'Roller07', StrFloatToStr(Edit47.Text));
+      MyIni.WriteString('Roller', 'Roller08', StrFloatToStr(Edit48.Text));
+      MyIni.WriteString('Roller', 'Roller09', StrFloatToStr(Edit49.Text));
+      MyIni.WriteString('Roller', 'Roller10', StrFloatToStr(Edit50.Text));
+
+    finally
+      // Always free the object
+      MyIni.Free;
+    end;
+  //end
+  //else
+  if not FileExists(s) then
+  begin
+    Showmessage('Can not save file');
+  end
+  else
+  begin
+    Button11Click(Sender);
+    for i:=0 to ListBox1.Count-1 do
+    begin
+      if (ListBox1.Items[i] = Edit53.Text  ) then  begin ListBox1.ItemIndex:=i; Break; end;
+    end;
+  end;
+end;
+
+procedure TForm1.Button4Click(Sender: TObject);
+var
+  s:string;
+  ResultCode:integer;
+begin
+  if (ListBox1.ItemIndex<0) then begin Showmessage('No file select'); exit;  end;
+
+  s:= GetCurrentDir+'\Recipe\'+ ListBox1.Items[ListBox1.ItemIndex];
+
+  if not FileExists(s) then
+  begin
+    Showmessage('File not exists');
+  end
+  else
+  begin
+
+    ResultCode := Application.MessageBox('Delete recipe' + sLineBreak + '!!!', 'Confirm',MB_ICONQUESTION + MB_YESNO);
+    if (ResultCode = IDYES) then
+    begin  end
+    else
+    begin exit; end;
+
+    if DeleteFile(PChar(s)) then
+      Showmessage('File deleted successfully')
+    else
+      Showmessage('Error: Unable to delete file');
+  end;
+  ListBox1.ItemIndex:=-1;
+  Button11Click(Sender);
+end;
+
 procedure TForm1.Button5Click(Sender: TObject);
 var
   i:integer;
@@ -993,9 +1273,11 @@ begin
 
   p_:=pos('.recipe',LowerCase(Edit54.Text));
   if (p_>1) then
-    s:= GetCurrentDir+'\Recipe\'+ Edit54.Text
+    Edit54.Text:= Edit54.Text
   else
-    s:= GetCurrentDir+'\Recipe\'+ Edit54.Text+'.Recipe';
+    Edit54.Text:= Edit54.Text+'.Recipe';
+
+  s:= GetCurrentDir+'\Recipe\'+ Edit54.Text;
 
   if FileExists(s) then
   begin
@@ -1118,6 +1400,42 @@ begin
   Edit30.Text:= Edit40.Text;
 end;
 
+procedure TForm1.CheckBox1EditingDone(Sender: TObject);
+begin
+  Chart2LineSeries2.ShowPoints:=CheckBox1.Checked;
+  Chart2LineSeries2.ShowLines:=CheckBox1.Checked;
+  Chart2LineSeries2.ShowInLegend:=CheckBox1.Checked;
+end;
+
+procedure TForm1.CheckBox2EditingDone(Sender: TObject);
+begin
+  Chart6LineSeries4.ShowPoints:=CheckBox2.Checked;
+  Chart6LineSeries4.ShowLines:=CheckBox2.Checked;
+  Chart6LineSeries4.ShowInLegend:=CheckBox2.Checked;
+end;
+
+procedure TForm1.CheckBox3EditingDone(Sender: TObject);
+begin
+  Chart6LineSeries3.ShowPoints:=CheckBox3.Checked;
+  Chart6LineSeries3.ShowLines:=CheckBox3.Checked;
+  Chart6LineSeries3.ShowInLegend:=CheckBox3.Checked;
+end;
+
+procedure TForm1.ClearName1Click(Sender: TObject);
+begin
+  Edit53.Text:='';
+end;
+
+procedure TForm1.ClearName2Click(Sender: TObject);
+begin
+  Edit54.Text:='';
+end;
+
+procedure TForm1.ClearName3Click(Sender: TObject);
+begin
+  Edit52.Text:='';
+end;
+
 procedure TForm1.ECSpeedBtn2Click(Sender: TObject);
 begin
   PageControl1.PageIndex:=1;     //Overview
@@ -1146,6 +1464,8 @@ procedure TForm1.Edit1EditingDone(Sender: TObject);
 var
   check:boolean;
   i:integer;
+  ChartMin_:float;
+  ChartMax_:float;
 begin
 
   TEdit(Sender).Text:= StrFloatToStr(TEdit(Sender).Text);
@@ -1237,13 +1557,35 @@ begin
     Chart6.ExtentSizeLimit.YMax:=ChartMax;
 
     _Source1_.Clear;
-    _Base_.Clear;
+    _Base01_.Clear;
     _Source2_.Clear;
+    _Base02.Clear;
     for i:=0 to TotalPointerX-1 do
     begin
-      _Source1_.Add(i,CurrentSource1[i] );
-      _Source2_.Add(i,CurrentSource2[i] );
+      _Source1_.Add(i+1,CurrentSource1[i] );
+      _Source2_.Add(i+1,CurrentSource2[i] );
+      _Base02.Add(i+1,CurrentSource2[i] );
     end;
+
+    ChartMin_:=9999;
+    ChartMax_:=-9999;
+
+    for i:=1 to 10 do
+    begin
+      if (CurrentSource2[i-1]<ChartMin_) then ChartMin_:=CurrentSource2[i-1];   //Actual
+      if (CurrentSource2[i-1]>ChartMax_) then ChartMax_:=CurrentSource2[i-1];   //Actual
+      if (TargetSource3[i-1]<ChartMin_) then ChartMin_:=TargetSource3[i-1];    //List1
+      if (TargetSource3[i-1]>ChartMax_) then ChartMax_:=TargetSource3[i-1];    //List1
+      if (TargetSource4[i-1]<ChartMin_) then ChartMin_:=TargetSource4[i-1];    //List2
+      if (TargetSource4[i-1]>ChartMax_) then ChartMax_:=TargetSource4[i-1];    //List2
+    end;
+    ChartMin_:=ChartMin_-1;
+    ChartMax_:=ChartMax_+1;
+
+    Chart7.Extent.YMin:=ChartMin_;
+    Chart7.Extent.YMax:=ChartMax_;
+    Chart7.ExtentSizeLimit.YMin:=ChartMin_;
+    Chart7.ExtentSizeLimit.YMax:=ChartMax_;
 
 end;
 
@@ -1257,6 +1599,8 @@ begin
   if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); Application.Terminate; end;
 
   ListBox1.Clear;
+  ListBox2.Clear;
+  ListBox3.Clear;
 
   FileList := FindAllFiles(GetCurrentDir+'\Recipe', '*', True);
   try
@@ -1273,7 +1617,12 @@ begin
     FileList.Free;
   end;
 
+  ListBox2.Items.Assign(ListBox1.Items);
+  ListBox3.Items.Assign(ListBox1.Items);
+
   ListBox1.ItemIndex:=-1;
+  ListBox2.ItemIndex:=-1;
+  ListBox3.ItemIndex:=-1;
 
   StartRecord:=false;
   Directory_:='';
@@ -1292,6 +1641,9 @@ begin
   Setlength(TargetSource1,TotalPointerX);
   Setlength(CurrentSource2,TotalPointerX);
   Setlength(TargetSource2,TotalPointerX);
+
+  Setlength(TargetSource3,TotalPointerX);
+  Setlength(TargetSource4,TotalPointerX);
 
   ChartMin:=999;
   ChartMax:=-999;
@@ -1327,6 +1679,8 @@ begin
   begin
     //CurrentSource1[i]:=Base_[i]+5;
     //CurrentSource2[i]:=Base_[i]-5;
+    TargetSource3[i]:=0;
+    TargetSource4[i]:=0;
 
     if (CurrentSource1[i]<ChartMin) then ChartMin:=CurrentSource1[i];
     if (CurrentSource1[i]>ChartMax) then ChartMax:=CurrentSource1[i];
@@ -1347,14 +1701,25 @@ begin
   Chart6.ExtentSizeLimit.YMax:=ChartMax;
 
   _Source1_.Clear;
-  _Base_.Clear;
+  _Base01_.Clear;
   _Source2_.Clear;
   for i:=0 to TotalPointerX-1 do
   begin
     _Source1_.Add(i+1,CurrentSource1[i] );
-    //_Base_.Add(i,Base_[i] );
+    //_Base01_.Add(i,Base_[i] );
     _Source2_.Add(i+1,CurrentSource2[i] );
   end;
+
+  _Source3.Clear;
+  _Base02.Clear;
+  _Source4.Clear;
+  for i:=0 to TotalPointerX-1 do
+  begin
+    //_Source03.Add(i+1,CurrentSource1[i] );
+    //_Base01_.Add(i,Base_[i] );
+    _Base02.Add(i+1,CurrentSource2[i] );
+  end;
+
   updatePhoto(MouseX,MouseY);
 end;
 
@@ -1418,7 +1783,7 @@ var
   //Attempts: Integer;
   //IsActive: Boolean;
 begin
-
+  if (ListBox1.ItemIndex<0) then exit;
   if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
 
   s:= GetCurrentDir+'\Recipe\'+ ListBox1.Items[ListBox1.ItemIndex];
@@ -1466,6 +1831,147 @@ begin
     Showmessage('File not found');
   end;
 
+end;
+
+procedure TForm1.ListBox2Click(Sender: TObject);
+var
+  s:string;
+  Read_Float:float;
+  Read_String:string;
+  MyIni: TIniFile;
+  ChartMin_:float;
+  ChartMax_:float;
+  i:integer;
+begin
+
+  if (ListBox2.ItemIndex<0) then exit;
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
+
+  s:= GetCurrentDir+'\Recipe\'+ ListBox2.Items[ListBox2.ItemIndex];
+
+  CheckBox1.Caption:=ListBox2.Items[ListBox2.ItemIndex];
+
+  _Source3.Clear;
+  //_Base02.Clear;
+  //_Source4.Clear;
+
+  if FileExists(s) then
+  begin
+    MyIni := TIniFile.Create(s);
+    try
+
+      //ChartMin_:=Chart7.Extent.YMin;
+      //ChartMax_:=Chart7.Extent.YMax;
+      //if (ChartMin_>Chart7.ExtentSizeLimit.YMin) then ChartMin_:=Chart7.ExtentSizeLimit.YMin;
+      //if (ChartMax_<Chart7.ExtentSizeLimit.YMax) then ChartMax_:=Chart7.ExtentSizeLimit.YMax;
+      //ChartMin_:=ChartMin_+1;
+      //ChartMax_:=ChartMax_-1;
+      ChartMin_:=9999;
+      ChartMax_:=-9999;
+
+      for i:=1 to 10 do
+      begin
+        Read_String := MyIni.ReadString('Roller', 'Roller0'+i.ToString, '0.0');
+        if (i>9) then Read_String := MyIni.ReadString('Roller', 'Roller'+i.ToString, '0.0');
+        Read_String:=StrFloatToStr(Read_String);
+        Read_Float:=StrToFloat(Read_String);
+        _Source3.Add(i,Read_Float);
+        TargetSource3[i-1]:=Read_Float;
+        if (CurrentSource2[i-1]<ChartMin_) then ChartMin_:=CurrentSource2[i-1];   //Actual
+        if (CurrentSource2[i-1]>ChartMax_) then ChartMax_:=CurrentSource2[i-1];   //Actual
+        if (TargetSource3[i-1]<ChartMin_) then ChartMin_:=TargetSource3[i-1];    //List1
+        if (TargetSource3[i-1]>ChartMax_) then ChartMax_:=TargetSource3[i-1];    //List1
+        if (TargetSource4[i-1]<ChartMin_) then ChartMin_:=TargetSource4[i-1];    //List2
+        if (TargetSource4[i-1]>ChartMax_) then ChartMax_:=TargetSource4[i-1];    //List2
+      end;
+
+    finally
+      // Always free the object
+      MyIni.Free;
+
+      ChartMin_:=ChartMin_-1;
+      ChartMax_:=ChartMax_+1;
+
+      Chart7.Extent.YMin:=ChartMin_;
+      Chart7.Extent.YMax:=ChartMax_;
+      Chart7.ExtentSizeLimit.YMin:=ChartMin_;
+      Chart7.ExtentSizeLimit.YMax:=ChartMax_;
+    end;
+  end
+  else
+  begin
+    Showmessage('File not found');
+  end;
+
+end;
+
+procedure TForm1.ListBox3Click(Sender: TObject);
+var
+  s:string;
+  Read_Float:float;
+  Read_String:string;
+  MyIni: TIniFile;
+  ChartMin_:float;
+  ChartMax_:float;
+  i:integer;
+begin
+  if (ListBox3.ItemIndex<0) then exit;
+  if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); exit; end;
+
+  s:= GetCurrentDir+'\Recipe\'+ ListBox3.Items[ListBox3.ItemIndex];
+
+  CheckBox2.Caption:=ListBox3.Items[ListBox3.ItemIndex];
+
+  //_Source3.Clear;
+  //_Base02.Clear;
+  _Source4.Clear;
+
+  if FileExists(s) then
+  begin
+    MyIni := TIniFile.Create(s);
+    try
+      //ChartMin_:=Chart7.Extent.YMin;
+      //ChartMax_:=Chart7.Extent.YMax;
+      //if (ChartMin_>Chart7.ExtentSizeLimit.YMin) then ChartMin_:=Chart7.ExtentSizeLimit.YMin;
+      //if (ChartMax_<Chart7.ExtentSizeLimit.YMax) then ChartMax_:=Chart7.ExtentSizeLimit.YMax;
+      //ChartMin_:=ChartMin_+1;
+      //ChartMax_:=ChartMax_-1;
+      ChartMin_:=9999;
+      ChartMax_:=-9999;
+
+      for i:=1 to 10 do
+      begin
+        Read_String := MyIni.ReadString('Roller', 'Roller0'+i.ToString, '0.0');
+        if (i>9) then Read_String := MyIni.ReadString('Roller', 'Roller'+i.ToString, '0.0');
+        Read_String:=StrFloatToStr(Read_String);
+        Read_Float:=StrToFloat(Read_String);
+        _Source4.Add(i,Read_Float);
+        TargetSource4[i-1]:=Read_Float;
+        if (CurrentSource2[i-1]<ChartMin_) then ChartMin_:=CurrentSource2[i-1];   //Actual
+        if (CurrentSource2[i-1]>ChartMax_) then ChartMax_:=CurrentSource2[i-1];   //Actual
+        if (TargetSource3[i-1]<ChartMin_) then ChartMin_:=TargetSource3[i-1];    //List1
+        if (TargetSource3[i-1]>ChartMax_) then ChartMax_:=TargetSource3[i-1];    //List1
+        if (TargetSource4[i-1]<ChartMin_) then ChartMin_:=TargetSource4[i-1];    //List2
+        if (TargetSource4[i-1]>ChartMax_) then ChartMax_:=TargetSource4[i-1];    //List2
+      end;
+
+    finally
+      // Always free the object
+      MyIni.Free;
+
+      ChartMin_:=ChartMin_-1;
+      ChartMax_:=ChartMax_+1;
+
+      Chart7.Extent.YMin:=ChartMin_;
+      Chart7.Extent.YMax:=ChartMax_;
+      Chart7.ExtentSizeLimit.YMin:=ChartMin_;
+      Chart7.ExtentSizeLimit.YMax:=ChartMax_;
+    end;
+  end
+  else
+  begin
+    Showmessage('File not found');
+  end;
 end;
 
 procedure TForm1.SSCClick(Sender: TObject);
