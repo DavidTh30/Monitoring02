@@ -1,0 +1,135 @@
+Picture : TBGRAbitmap // The resulting picture
+PBFrame : TImage  // Center, Proportional, Stretch, StretchInEnabled, StretchOutEnabled, Anchors: Bottom, Right, Left, Top
+TBit: TBitmap;
+
+    TBit := TBitmap.Create;
+    try
+     TBit.PixelFormat := pf24bit;
+     TBit.Width := Picture.Width;
+     TBit.Height := Picture.Height;
+     Picture.draw(TBit.Canvas, 0,0,true);
+     PBFrame.Picture.Assign(TBit) ;
+    finally
+    end;
+
+-------------------------------------------------------------------
+
+
+var bmp1, bmp2,bmp3, tmp: TBGRAbitmap;
+
+....
+bmp1.putimage (0,0,bmp2,dmset);
+bmp1.putimage (0,0,bmp3, dmDrawWithTransparency);
+tmp := TBGRAbitmap.create;
+BGRAReplace(tmp, bmp1.Resample(Image1.width,image1.Height) );
+tmp.draw(Image1.Canvas, 0,0,true);
+tmp.free;
+......
+
+TDrawMode = (
+    dmSet,
+    dmSetExceptTransparent,
+    dmLinearBlend,
+    dmDrawWithTransparency,
+    dmXor);
+
+-------------------------------------------------------------------
+
+https://wiki.freepascal.org/BGRABitmap_tutorial_5
+
+--------------------------------------------------------------------
+
+procedure TForm1.FormPaint(Sender: TObject);
+var image: TBGRABitmap;
+    size: single;
+
+  procedure DrawMoon;
+  var layer: TBGRABitmap;
+  begin
+    layer := TBGRABitmap.Create(image.Width,image.Height);
+    layer.FillEllipseAntialias(layer.Width/2,layer.Height/2,size*0.4,size*0.4,BGRA(224,224,224,128));
+    layer.EraseEllipseAntialias(layer.Width/2+size*0.15,layer.Height/2,size*0.3,size*0.3,255);
+    image.PutImage(0,0,layer,dmDrawWithTransparency);
+    layer.Free;
+  end;
+
+begin
+  image := TBGRABitmap.Create(ClientWidth,ClientHeight);
+
+  //Compute available space in both directions
+  if image.Height < image.Width then
+    size := image.Height
+  else
+    size := image.Width;
+
+  image.GradientFill(0,0,image.Width,image.Height,
+                     BGRA(128,192,255),BGRA(0,0,255),
+                     gtLinear,PointF(0,0),PointF(0,image.Height),
+                     dmSet);
+
+  DrawMoon;
+
+  image.Draw(Canvas,0,0,True);
+  image.free;
+end;
+
+----------------------------------------------------------------------
+
+var temp,tex,mask: TBGRABitmap;
+begin
+  temp:= TBGRABitmap.Create(640,480,ColorToBGRA(ColorToRGB(clBtnFace)));
+
+  //loading and scaling texture
+  tex := TBGRABitmap.Create('texture.png');
+  BGRAReplace(tex,tex.Resample(128,80));
+
+  //show image in the upper-left corner
+  temp.PutImage(10,10,tex,dmDrawWithTransparency);
+
+  //create a mask with ellipse and rectangle
+  mask := TBGRABitmap.Create(128,80,BGRABlack);
+  mask.FillEllipseAntialias(40,40,30,30,BGRAWhite);
+  mask.FillRectAntialias(60,40,100,70,BGRAWhite);
+
+  //show mask in the upper-right corner
+  temp.PutImage(150,10,mask,dmDrawWithTransparency);
+
+  //apply the mask to the image
+  tex.ApplyMask(mask);
+
+  //show the result image in the lower-left corner
+  temp.PutImage(10,100,tex,dmDrawWithTransparency);
+
+  mask.Free;
+  tex.Free;
+
+  //show everything on the screen
+  temp.Draw(Canvas,0,0,True);
+  temp.Free;
+end;
+----------------------------------------------------------------------------
+var image,tex: TBGRABitmap;
+begin
+  image := TBGRABitmap.Create(640,480,ColorToBGRA(ColorToRGB(clBtnFace)));
+
+  //load and scale texture
+  tex := TBGRABitmap.Create('texture.png');
+  BGRAReplace(tex,tex.Resample(128,80));
+
+  //show image
+  image.PutImage(10,10,tex,dmDrawWithTransparency);
+
+  //erase parts
+  tex.EraseEllipseAntialias(40,40,30,30,255);
+  tex.EraseEllipseAntialias(80,40,30,30,128);
+
+  //show result
+  image.PutImage(10,100,tex,dmDrawWithTransparency);
+
+  tex.Free;
+
+  //show everything on the screen
+  image.Draw(Canvas,0,0,True);
+  image.Free;
+end;
+

@@ -138,6 +138,7 @@ type
     Label37: TLabel;
     Label38: TLabel;
     Label39: TLabel;
+    Label4: TLabel;
     Label40: TLabel;
     Label41: TLabel;
     Label42: TLabel;
@@ -148,6 +149,7 @@ type
     Label47: TLabel;
     Label48: TLabel;
     Label49: TLabel;
+    Label5: TLabel;
     Label50: TLabel;
     Label51: TLabel;
     Label52: TLabel;
@@ -158,6 +160,9 @@ type
     Label57: TLabel;
     Label58: TLabel;
     Label59: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
     Label_Source10: TLabel;
     Label_Source11: TLabel;
     Label_Source7: TLabel;
@@ -210,6 +215,7 @@ type
     procedure ECSpeedBtn4Click(Sender: TObject);
     procedure ECSpeedBtn8Click(Sender: TObject);
     procedure Edit1EditingDone(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure Image2Click(Sender: TObject);
@@ -264,6 +270,8 @@ var
   t1:integer;
   MouseX:integer;
   MouseY:integer;
+  Start_:boolean;
+  bmp: TBGRABitmap;
 
 implementation
 
@@ -716,7 +724,6 @@ end;
 
 procedure TForm1.updatePhoto(x: integer; y: integer);
 var
-  bmp: TBGRABitmap;
   x_ : Integer;
   y_ : Integer;
   i : Integer;
@@ -732,7 +739,14 @@ begin
   //Orgy := 97;
   Orgx := X;
   Orgy := Y;
-  bmp := TBGRABitmap.Create(Image5.Width,Image5.Height, ColorToBGRA(ColorToRGB(clWhite)));
+
+  //bmp := TBGRABitmap.Create(Image5.Width,Image5.Height, ColorToBGRA(ColorToRGB(clWhite)));
+  //bmp.InvalidateBitmap;
+
+  bmp.GradientFill(0,0,bmp.Width,bmp.Height,
+                     BGRA(128,192,255),BGRA(0,0,255),
+                     gtLinear,PointF(0,0),PointF(0,bmp.Height),
+                     dmSet);
 
   bmp.Canvas2D.strokeStyle ('rgb(50,50,50)');
   bmp.Canvas2D.stroke();
@@ -823,8 +837,7 @@ begin
   bmp.Draw(Image5.Canvas,0,0,true);
   //bmp.Draw(Canvas, 0, 0, True); // draw the bitmap in opaque mode (faster)
 
-  bmp.Free;
-
+  //bmp.Free;
   image5.Refresh;
 end;
 
@@ -864,9 +877,8 @@ begin
 end;
 
 Function TForm1.CheckDirectory(C_DNAME: string;Debug_:TMemo):boolean; //True=Error
-var
-  tfOut: TextFile;
 begin
+
   result:= false;
 
   if(C_DNAME<>'')then
@@ -1593,14 +1605,28 @@ begin
 
 end;
 
+procedure TForm1.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+  Start_:=false;
+end;
+
 procedure TForm1.FormCreate(Sender: TObject);
 var
   i:integer;
   FileList: TStringList;
   P_: Integer;
+  appDir:string;
 begin
 
   if CheckDirectory('Recipe',Memo1) then begin Showmessage('Folder Recipe Error'); Application.Terminate; end;
+
+  appDir := ExpandFileName(ExtractFileDir(Application.ExeName));
+  appDir := IncludeTrailingPathDelimiter(appDir);
+  Label4.Caption:=appDir;
+  Label5.Caption:=Application.ExeName;
+  Label6.Caption:=ExtractFileDir(Application.ExeName);
+  Label7.Caption:=GetCurrentDir;
+  Label8.Caption:=ExtractFileName(Application.ExeName);
 
   ListBox1.Clear;
   ListBox2.Clear;
@@ -1724,16 +1750,21 @@ begin
     _Base02.Add(i+1,CurrentSource2[i] );
   end;
 
+  Start_:=true;
+  bmp := TBGRABitmap.Create(Image5.Width,Image5.Height, ColorToBGRA(ColorToRGB(clWhite)));
   updatePhoto(MouseX,MouseY);
+  Timer1.Enabled:=true;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);
 begin
+  Start_:=false;
   if StartRecord then CloseFile(fileout);
 
   StartRecord:=false;
   Timer1.Enabled:=false;
   Timer2.Enabled:=false;
+  bmp.Free;
 
 end;
 
@@ -2014,17 +2045,19 @@ end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
+
   timer1.Enabled:=false;
-  Application.ProcessMessages;
-  if (PageControl1.TabIndex=2) then
+  while  Start_  do
   begin
+    Application.ProcessMessages;
+    if (PageControl1.TabIndex=2) then
+    begin
 
-  updatePhoto(MouseX,MouseY);
+    updatePhoto(MouseX,MouseY);
 
-
-
+    end;
   end;
-  timer1.Enabled:=true;
+  //timer1.Enabled:=true;
 end;
 
 procedure TForm1.Timer2Timer(Sender: TObject);
